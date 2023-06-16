@@ -8,6 +8,16 @@
     <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
 @endsection
 
+@php
+    $startDate = new DateTime($data['checkIn']);
+    $endDate = new DateTime($data['checkOut']);
+    $interval = $startDate->diff($endDate);
+    $days = $interval->format('%R%a');
+    $ExtraGuestCharges = isset($rooms[0]['ExtraGuestCharges']) ? $rooms[0]['ExtraGuestCharges'] : 0;
+    $TotalTax = floatval($rooms[0]['TotalTax']);
+    $TotalFare = floatval($rooms[0]['TotalFare']);
+    $BasePrice = floatval($rooms[0]['DayRates'][0][0]['BasePrice']);
+@endphp
 @section('content')
     <section class="breadcrumb-main pb-0" style="background-image: url(images/bg/bg8.jpg);">
         <div class="breadcrumb-outer pt-10">
@@ -28,17 +38,25 @@
         <div class="dot-overlay"></div>
     </section>
 
-{{-- pesiliduzu@mailinator.com --}}
-{{-- Pa$$w0rd! --}}
+    {{-- pesiliduzu@mailinator.com --}}
+    {{-- Pa$$w0rd! --}}
     <section class="blog trending destination-b">
         <div class="container">
             <div class="row">
                 <div class="col-md-7 col-xs-12">
                     <div class="single-content">
+
                         <div class="single-full-title border-b mb-2 pb-2">
                             <div class="single-title">
                                 <h3 class="mb-1">{{ $hotelinfo['name'] }}</h3>
+                                <h4>Room</h4>
                                 <div class="rating-main">
+                                    <div class="room" style="color: #fff; background: #162241; background-color: #162241; padding:1em;">
+                                        <h5 class="mb-0 white">{{ $rooms[0]['Name'][0] }}</span></h5>
+                                        <h5 class="white">Day Rate <span class="text-danger text-center">{{ number_format($BasePrice, 2) }}</span></h5>
+                                    </div>
+
+
                                     <p class="mb-0 mr-2"><i class="flaticon-location-pin"></i> {{ $hotelinfo['city'] }},
                                         {{ $hotelinfo['countryname'] }}</p>
                                     <p class="mb-2 border-t pt-2">{{ $hotelinfo['address'] }}</p>
@@ -48,6 +66,37 @@
                                             <span class="fa fa-star checked"></span>
                                         @endfor
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="description">
+                            <div class="card">
+                                <div class="card-header">Cancel Policies</div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h5>From</h5>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h5>Charge Type</h5>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h5>Charge</h5>
+                                        </div>
+                                    </div>
+                                    @foreach ($rooms[0]['CancelPolicies'] as $item)
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-4"><span class="text-danger">{{ date('j M Y', strtotime($item['FromDate'])) }}</span>
+                                            </div>
+                                            <div class="col-md-4"><span
+                                                    class="text-danger">{{ $item['ChargeType'] }}</span></div>
+                                            <div class="col-md-4"> <span
+                                                    class="text-danger">{{ $item['CancellationCharge'] }}</span></div>
+                                        </div>
+                                        <hr>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -126,18 +175,6 @@
                                             <p class="white">{{ $rooms[0]['Name'][0] }}</p>
                                         </div>
                                     </div>
-
-                                    @php
-                                        $startDate = new DateTime($data['checkIn']);
-                                        $endDate = new DateTime($data['checkOut']);
-                                        $interval = $startDate->diff($endDate);
-                                        $days = $interval->format('%R%a');
-                                        $ExtraGuestCharges = isset($rooms[0]['ExtraGuestCharges']) ? $rooms[0]['ExtraGuestCharges'] : 0;
-                                        $TotalTax = floatval($rooms[0]['TotalTax']);
-                                        $TotalFare = floatval($rooms[0]['TotalFare']);
-                                        $BasePrice = floatval($rooms[0]['DayRates'][0][0]['BasePrice']);
-                                    @endphp
-
                                     <div class="row mb-1">
                                         <div class="col-md-3 form-group"><label class="white">Price @ Day</label> </div>
                                         <div class="col-md-5 form-group"><input type="text" name="dayrate" id="dayrate"
@@ -152,15 +189,15 @@
 
                                     <div class="row mb-1">
                                         <div class="col-md-8 form-group"><label class="white">Total Fare</label> </div>
-                                        <div class="col-md-4 form-group float-right"><input type="text" name="totalfare"
-                                                id="totalfare" class="form-control"
+                                        <div class="col-md-4 form-group float-right"><input type="text"
+                                                name="totalfare" id="totalfare" class="form-control"
                                                 value="{{ number_format($TotalFare, 2) }}" readonly></div>
                                     </div>
 
                                     <div class="row mb-1">
                                         <div class="col-md-8 form-group"><label class="white">Total Tax</label></div>
-                                        <div class="col-md-4 form-group float-right"><input type="text" name="totaltax"
-                                                id="totaltax" class="form-control"
+                                        <div class="col-md-4 form-group float-right"><input type="text"
+                                                name="totaltax" id="totaltax" class="form-control"
                                                 value="{{ number_format($TotalTax, 2) }}" readonly></div>
                                     </div>
 
@@ -192,19 +229,20 @@
                                             <div class="input-box">
                                                 <i class="flaticon-calendar"></i>
                                                 <input id="date-range0" type="text" placeholder="yyyy-mm-dd"
-                                                    name="checkin" id="checkIn" class="form-control"
+                                                    name="checkin" id="checkInVal" class="form-control"
                                                     value="{{ $data['checkIn'] }}" readonly>
                                             </div>
                                         </div>
 
-                                        <input type="hidden" name="bookingcode" id="BookingCode" value="{{ $rooms[0]['BookingCode'] }}">
+                                        <input type="hidden" name="bookingcode" id="BookingCode"
+                                            value="{{ $rooms[0]['BookingCode'] }}">
 
                                         <div class="col-lg-6 form-group">
                                             <label class="white">Check Out</label>
                                             <div class="input-box">
                                                 <i class="flaticon-calendar"></i>
                                                 <input id="date-range1" type="text" placeholder="yyyy-mm-dd"
-                                                    name="checkout" id="checkOut" class="form-control"
+                                                    name="checkout" id="checkOutVal" class="form-control"
                                                     value="{{ $data['checkOut'] }}" readonly>
                                             </div>
                                         </div>
@@ -213,9 +251,10 @@
                                             <label class="white">Adult</label>
                                             <div class="input-box">
                                                 <i class="flaticon-add-user"></i>
-                                                <select class="form-control" name="adults" id="noOfAdults">
+                                                <select class="form-control" name="adults" id="noOfAdults" readonly>
                                                     @for ($i = 0; $i < 8; $i++)
-                                                        <option value="{{ $i }}">{{ $i }}
+                                                        <option value="{{ $i }}"
+                                                            {{ $i === $adults ? 'selected' : '' }}>{{ $i }}
                                                         </option>
                                                     @endfor
                                                 </select>
@@ -226,11 +265,9 @@
                                             <label class="white">Children</label>
                                             <div class="input-box">
                                                 <i class="flaticon-add-user"></i>
-                                                <select class="form-control" name="children" id="noOfChildren">
+                                                <select class="form-control" name="children" id="noOfChildren" readonly>
                                                     @for ($i = 0; $i < 8; $i++)
-                                                        <option value="{{ $i }}"
-                                                            {{ $i == $data['rooms'][0]['Children'] ? 'selected' : '' }}>
-                                                            {{ $i }}</option>
+                                                        <option value="{{ $i }}" {{ $i == $data['rooms'][0]['Children'] ? 'selected' : '' }}>{{ $i }}</option>
                                                     @endfor
                                                 </select>
 
@@ -255,7 +292,20 @@
                                         </div>
 
                                         <div class="col-md-12" id="adultsNameSection">
-
+                                            @for ($i = 0; $i < $adults; $i++)
+                                                <div class="row mb-1">
+                                                    <div class="col-md-2"><select name="title" id="userTitle"
+                                                            class="form-control" required>
+                                                            <option value="Mr">Mr</option>
+                                                            <option value="Mrs">Mrs</option>
+                                                            <option value="Ms">Ms</option>
+                                                        </select></div>
+                                                    <div class="col-md-5"><input type="text" name="firstname"
+                                                            id="firstName" class="form-control" required></div>
+                                                    <div class="col-md-5"><input type="text" name="lastname"
+                                                            id="lastName" class="form-control" required></div>
+                                                </div>
+                                            @endfor
                                         </div>
                                         <hr>
                                         <h5 class="white">Children</h5>
@@ -274,7 +324,20 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12" id="childrenNamesSection">
-
+                                            @for ($i = 0; $i < $children; $i++)
+                                                <div class="row mb-1">
+                                                    <div class="col-md-2"><select name="title" id="userTitle"
+                                                            class="form-control" required>
+                                                            <option value="Mr">Mr</option>
+                                                            <option value="Mrs">Mrs</option>
+                                                            <option value="Ms">Ms</option>
+                                                        </select></div>
+                                                    <div class="col-md-5"><input type="text" name="firstname"
+                                                            id="firstName" class="form-control" required></div>
+                                                    <div class="col-md-5"><input type="text" name="lastname"
+                                                            id="lastName" class="form-control" required></div>
+                                                </div>
+                                            @endfor
                                         </div>
                                         <hr>
                                         <h5 class="white">Payment Information</h5>
@@ -284,21 +347,21 @@
                                                 <div class="form-group">
                                                     <label for="emai" class="white">Email</label>
                                                     <input type="email" name="EmailId" id="emailID"
-                                                        class="form-control">
+                                                        class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="phone" class="white">Phone Number</label>
                                                     <input type="text" name="PhoneNumber" id="PhoneNumber"
-                                                        class="form-control">
+                                                        class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="CardNumber" class="white">Card Number</label>
                                                     <input type="text" name="CardNumber" id="CardNumber"
-                                                        class="form-control">
+                                                        class="form-control" required>
                                                 </div>
                                             </div>
 
@@ -306,7 +369,7 @@
                                                 <div class="form-group">
                                                     <label for="CvvNumber" class="white">Cvv Number</label>
                                                     <input type="text" name="CvvNumber" id="CvvNumber"
-                                                        class="form-control">
+                                                        class="form-control" required>
                                                 </div>
                                             </div>
 
@@ -315,7 +378,7 @@
                                                     <label for="CardExpirationMonth" class="white">Card Expiry
                                                         Month</label>
                                                     <select name="CardExpirationMonth" id="CardExpirationMonth"
-                                                        class="form-control">
+                                                        class="form-control" required>
                                                         @for ($i = 1; $i <= 12; $i++)
                                                             <option value="{{ $i }}">{{ $i }}
                                                             </option>
@@ -329,7 +392,7 @@
                                                     <label for="CardExpirationYear" class="white">Card Expiry
                                                         Year</label>
                                                     <select name="CardExpirationYear" id="CardExpirationYear"
-                                                        class="form-control">
+                                                        class="form-control" required>
                                                         @for ($i = date('Y'); $i <= 2030; $i++)
                                                             <option value="{{ $i }}">{{ $i }}
                                                             </option>
@@ -342,14 +405,14 @@
                                                 <div class="form-group">
                                                     <label for="CardHolderFirstName" class="white">First Name</label>
                                                     <input type="text" name="CardHolderFirstName"
-                                                        id="CardHolderFirstName" class="form-control">
+                                                        id="CardHolderFirstName" class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="CardHolderlastName" class="white">Last Name</label>
                                                     <input type="text" name="CardHolderlastName"
-                                                        id="CardHolderlastName" class="form-control">
+                                                        id="CardHolderlastName" class="form-control" required>
                                                 </div>
                                             </div>
                                             {{-- <div class="col-md-6">
@@ -365,7 +428,7 @@
                                                     <label for="CardHolderAddress" class="white">Card holder
                                                         Zip/Address</label>
                                                     <input type="text" name="CardHolderAddress" id="CardHolderAddress"
-                                                        class="form-control">
+                                                        class="form-control" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -377,21 +440,21 @@
                                                 <div class="form-group">
                                                     <label for="AddressLine1" class="white">Address Line 1</label>
                                                     <input type="text" name="AddressLine1" id="AddressLine1"
-                                                        class="form-control">
+                                                        class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="AddressLine2" class="white">Address Line 2</label>
                                                     <input type="text" name="AddressLine2" id="AddressLine2"
-                                                        class="form-control">
+                                                        class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="City" class="white">City</label>
                                                     <input type="text" name="City" id="City"
-                                                        class="form-control">
+                                                        class="form-control" required>
                                                 </div>
                                             </div>
 
@@ -399,15 +462,15 @@
                                                 <div class="form-group">
                                                     <label for="PostalCode" class="white">Postal Code</label>
                                                     <input type="text" name="PostalCode"
-                                                        id="PostalCode"class="form-control">
+                                                        id="PostalCode"class="form-control" required>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="country" class="white">Country</label>
-                                                    <select name="CountryCode" id="CountryCode"
-                                                        class="form-control"></select>
+                                                    <select name="CountryCode" id="CountryCode" class="form-control"
+                                                        required style="width: 100%;"></select>
                                                 </div>
                                             </div>
                                         </div>

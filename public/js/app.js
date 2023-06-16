@@ -30,7 +30,6 @@
             });
             $("#searchcountries").html(option);
             $("#CountryCode").html(option);
-            $("#CountryCode").select2({});
         });
     }
 

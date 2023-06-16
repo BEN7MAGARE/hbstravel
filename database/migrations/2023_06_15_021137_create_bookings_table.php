@@ -20,7 +20,17 @@ class CreateBookingsTable extends Migration
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Hotel::class);
             $table->string('ref_no')->unique();
-            $table->string('');
+            $table->string('hotelcode')->nullable();
+            $table->string('bookingcode')->nullable();
+            $table->string('roomname')->nullable();
+            $table->string('inclusion')->nullable();
+            $table->string('no_of_adults')->default(0);
+            $table->string('no_of_children')->default(0);
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('checkin')->nullable();
+            $table->string('checkout')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }

@@ -89,4 +89,11 @@ class TboService
             ]
         );
     }
+
+    function book($data)
+    {
+        return Http::withHeaders(self::$headers)->post(
+            config('services.hbo.base_url').'/book',$data
+        );
+    }
 }

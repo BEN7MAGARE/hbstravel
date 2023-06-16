@@ -2145,6 +2145,12 @@ input#submit:hover {
     border-color: #162241;
 }
 
+.bg-primary {
+    background: #162241;
+
+    border-color: #162241;
+}
+
 .accrodion-grp .accrodion.active .accrodion-title h5 {
 
     color: #fff;
@@ -6551,7 +6557,7 @@ nav.navbar.navbar-default.navbar-sticky-in .logo-black {
 
 .sidebar-sticky {
 
-    position: sticky;
+    /* position: sticky; */
 
     top: 0;
 
@@ -6745,7 +6751,6 @@ nav.navbar.navbar-default.navbar-sticky-in .logo-black {
 .sidebar-sticky .form-content .input-box [class^="fa-"]:before {
 
     color: #ef2853;
-
     font-weight: 600;
 }
 
@@ -11383,7 +11388,7 @@ form.cart {
 
 .sidebar {
 
-    position: sticky;
+    /* position: sticky; */
 
     top: 0;
 }

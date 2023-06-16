@@ -16,4 +16,7 @@ class Controller extends BaseController
     public $category;
     public $hotel;
     public $destination;
+    public $booking;
+    public $service;
+    public $payment;
 }
