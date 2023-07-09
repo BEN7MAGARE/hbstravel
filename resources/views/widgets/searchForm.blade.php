@@ -3,6 +3,7 @@
     <div class="container">
         <div class="form-content">
             <h3 class="form-title text-center d-inline white">Find a Place</h3>
+    @include('widgets.alerts')
 
             <form action="{{ route('search.api') }}" method="post" id="searchPlacesForm">
                 @csrf
@@ -23,7 +24,7 @@
                     <div class="form-group col-md-2">
                         <div class="input-box">
                             <i class="fa fa-calendar"></i>
-                            <input class="form-control form-control-lg" id="date-range0" name="checkIn"
+                            <input class="form-control form-control-lg" value="{{ old('checkIn') }}"id="date-range0" name="checkIn"
                                 placeholder="Depart Date">
                         </div>
                     </div>
@@ -31,7 +32,7 @@
                     <div class="form-group col-md-2">
                         <div class="input-box">
                             <i class="fa fa-calendar"></i>
-                            <input class="form-control form-control-lg" id="date-range1" name="checkOut"
+                            <input class="form-control form-control-lg" id="date-range1" value="{{ old("checkOut") }}" name="checkOut"
                                 placeholder="Return Date">
                         </div>
                     </div>

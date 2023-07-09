@@ -51,9 +51,12 @@
                                 <h3 class="mb-1">{{ $hotelinfo['name'] }}</h3>
                                 <h4>Room</h4>
                                 <div class="rating-main">
-                                    <div class="room" style="color: #fff; background: #162241; background-color: #162241; padding:1em;">
+                                    <div class="room"
+                                        style="color: #fff; background: #162241; background-color: #162241; padding:1em;">
                                         <h5 class="mb-0 white">{{ $rooms[0]['Name'][0] }}</span></h5>
-                                        <h5 class="white">Day Rate <span class="text-danger text-center">{{ number_format($BasePrice, 2) }}</span></h5>
+                                        <h5 class="white">Day Rate <span
+                                                class="text-danger text-center">{{ number_format($BasePrice, 2) }}</span>
+                                        </h5>
                                     </div>
 
 
@@ -88,7 +91,8 @@
                                     @foreach ($rooms[0]['CancelPolicies'] as $item)
                                         <hr>
                                         <div class="row">
-                                            <div class="col-md-4"><span class="text-danger">{{ date('j M Y', strtotime($item['FromDate'])) }}</span>
+                                            <div class="col-md-4"><span
+                                                    class="text-danger">{{ date('j M Y', strtotime($item['FromDate'])) }}</span>
                                             </div>
                                             <div class="col-md-4"><span
                                                     class="text-danger">{{ $item['ChargeType'] }}</span></div>
@@ -106,11 +110,21 @@
                             <div class="description mb-4">
                                 <h4>Room Amenities</h4>
                                 <div class="row">
-                                    @foreach ($Amenities as $key => $item)
-                                        <div class="col-md-4">
-                                            <p><i class="fa fa-check text-success mr-1"></i>&nbsp;{{ $item }}
-                                            </p>
-                                        </div>
+                                    @foreach ($Amenities as $item)
+                                        @if (is_array($item))
+                                            @foreach ($item as $item)
+                                                <div class="col-md-4">
+                                                    <p><i
+                                                            class="fa fa-check text-success mr-1"></i>&nbsp;{{ $item }}
+                                                    </p>
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <div class="col-md-4">
+                                                <p><i class="fa fa-check text-success mr-1"></i>&nbsp;{{ $item }}
+                                                </p>
+                                            </div>
+                                        @endif
                                     @endforeach
                                 </div>
                             </div>
@@ -157,6 +171,7 @@
                                 <form class="form-content" action="{{ route('bookings.store') }}" method="POST"
                                     id="bookingForm">
                                     <div id="bookingfeedback"></div>
+                                    <div class="bookingfeedback"></div>
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-12">
@@ -229,20 +244,21 @@
                                             <div class="input-box">
                                                 <i class="flaticon-calendar"></i>
                                                 <input id="date-range0" type="text" placeholder="yyyy-mm-dd"
-                                                    name="checkin" id="checkInVal" class="form-control"
+                                                    name="checkin" class="form-control checkInVal"
                                                     value="{{ $data['checkIn'] }}" readonly>
                                             </div>
                                         </div>
 
-                                        <input type="hidden" name="bookingcode" id="BookingCode"
-                                            value="{{ $rooms[0]['BookingCode'] }}">
+                                        <input type="hidden" name="bookingcode" id="BookingCode" value="{{ $rooms[0]['BookingCode'] }}">
+                                        <input type="hidden" name="tbocode" id="TboCode" value="{{ $hotel[0]['HotelCode'] }}">
+
 
                                         <div class="col-lg-6 form-group">
                                             <label class="white">Check Out</label>
                                             <div class="input-box">
                                                 <i class="flaticon-calendar"></i>
                                                 <input id="date-range1" type="text" placeholder="yyyy-mm-dd"
-                                                    name="checkout" id="checkOutVal" class="form-control"
+                                                    name="checkout" class="form-control checkOutVal"
                                                     value="{{ $data['checkOut'] }}" readonly>
                                             </div>
                                         </div>
@@ -267,7 +283,9 @@
                                                 <i class="flaticon-add-user"></i>
                                                 <select class="form-control" name="children" id="noOfChildren" readonly>
                                                     @for ($i = 0; $i < 8; $i++)
-                                                        <option value="{{ $i }}" {{ $i == $data['rooms'][0]['Children'] ? 'selected' : '' }}>{{ $i }}</option>
+                                                        <option value="{{ $i }}"
+                                                            {{ $i == $data['rooms'][0]['Children'] ? 'selected' : '' }}>
+                                                            {{ $i }}</option>
                                                     @endfor
                                                 </select>
 
@@ -474,6 +492,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="bookingfeedback"></div>
                                         <div class="col-lg-12">
                                             <div class="form-group mb-0">
                                                 <button type="submit" class="nir-btn w-100"><i class="fa fa-save"></i>

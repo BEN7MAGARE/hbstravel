@@ -303,7 +303,7 @@ class HotelController extends Controller
 
     public function searchApi(TboService $service)
     {
-
+        // return request()->roomsCount;
         $rooms = [
             ...array_map(function ($index) {
                 return [
@@ -314,33 +314,27 @@ class HotelController extends Controller
                         range(1, request()->input('children' . $index) ?? 0)
                     )
                 ];
-            }, range(1, request()->roomsCount))
+            }, range(1, 1))
         ];
         $values = ["checkin" => request()->checkIn, "checkout" => request()->checkOut, 'adults' => request()->input('adults'), 'children' => request()->input('children')];
-
         session()->put('search', [
             'country' => request()->countries,
             'checkIn' => request()->checkIn,
             'checkOut' => request()->checkOut,
             'rooms' => $rooms,
         ]);
-
         $localhotels = Hotel::where('country_code', request()->country_code)->select('id', 'tbo_code', 'name', 'city', 'address')->get();
         $hotelcodes = $localhotels->pluck("tbo_code")->chunk(100)->first()->toArray();
-
         $result = $service::search(
             $hotelcodes,
             request()->checkIn,
             request()->checkOut,
             $rooms
         );
-
         if ($result["Status"]["Code"] !== 200) {
-            return redirect()->back()->withErrors($result["Status"]["Description"]);
+            session()->put('errors', $result["Status"]["Description"]);
+            return redirect()->back();
         }
-        // session()->put('searchResult', $result);
-        // $results = collect($result['HotelResult']);
-        // return $results->count();
         $data = [];
         $hotels = $result['HotelResult'];
         if (count($hotels) > 0) {
@@ -357,41 +351,8 @@ class HotelController extends Controller
                 array_push($data, $object);
             }
         }
-
-
-        // if (!isset($result['HotelResult']))
-        //     return redirect()->back()->with('error', 'No hotel data was found');
-
-        // session()->put('searchResult', $data);
-        // return $result['HotelResult'];
         $country = Country::where('iso', request()->country_code)->first();
         $title = "Hotels in " . $country->name;
-
-
-        // $hotels = collect($result['HotelResult'])
-        //     ->map(function ($hotel) use ($country, $service, $localhotels) {
-        //         $selectedHotel = $localhotels->where('tbo_code', $hotel["HotelCode"])->first();
-
-        //         if (!$selectedHotel) return null;
-
-        //         $hotelDetails = $service::getHotelDetails($hotel['HotelCode']);
-        //         $hotelRating = $hotelDetails['HotelDetails'][0]['HotelRating'];
-        //         $room = $hotel["Rooms"][0];
-        //         return [
-        //             'hotel' => $selectedHotel,
-        //             'image' => $selectedHotel?->images->first()?->path,
-        //             'currency' => $hotel["Currency"],
-        //             'rating' => $hotelRating,
-        //             'starting' => [
-        //                 "room" => $room["Name"][0],
-        //                 'features' => $room["Inclusion"],
-        //                 'price' => $room["DayRates"][0][0]["BasePrice"],
-        //                 'fare' => $room["TotalFare"],
-        //                 'tax' => $room["TotalTax"]]
-        //             ];
-        //     })
-        //     ->filter(fn ($hotel) => !is_null($hotel))
-        //     ->toArray();
         return view('hotel.list', ['title' => $title, 'country' => $country, 'hotels' => $data, 'hotelscount' => $localhotels->count(), 'total' => count($result['HotelResult']), 'values' => $values]);
     }
 }

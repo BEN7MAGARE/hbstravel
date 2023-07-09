@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Booking extends Model
 {
@@ -11,8 +12,10 @@ class Booking extends Model
 
     protected $fillable = [
         'user_id',
+        'hotel_id',
         'booking_id',
         'ref_no',
+        'tbocode',
         'bookingcode',
         'roomcode',
         'roomdetails',
@@ -22,12 +25,13 @@ class Booking extends Model
         'phone',
         'checkin',
         'checkout',
+        'confimationcode',
         'status',
     ];
 
     function getref() {
-        $prevbooking = $this->booking->orderBy('id', 'DESC')->first();
-        $ref_no = (!is_null($prevbooking) && $prevbooking !== 1) ? strtotime(now()) . '-' . $prevbooking->id + 1 : strtotime(now()) . '-1';
+        $prevbooking = $this->orderBy('id', 'DESC')->first();
+        $ref_no = (!is_null($prevbooking) && $prevbooking !== 1) ? strtotime(now()).Str::random(3).$prevbooking->id + 1 : strtotime(now()). Str::random(3).'1';
         return $ref_no;
     }
 }

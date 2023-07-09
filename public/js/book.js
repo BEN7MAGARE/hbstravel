@@ -59,8 +59,9 @@
             totaltax = $("#totaltax").val(),
             ExtraGuestCharges = $("#ExtraGuestCharges").val(),
             grandTotal = $("#grandTotal").val(),
-            checkIn = $("#checkInVal").val(),
-            checkOut = $("#checkOutVal").val(),
+            checkIn = $(".checkInVal").val(),
+            checkOut = $(".checkOutVal").val(),
+            tbocode = $('#TboCode').val(),
             noOfAdults = $("#noOfAdults").val(),
             noOfChildren = $("#noOfChildren").val(),
             adultsNameSection = $("#adultsNameSection"),
@@ -112,13 +113,13 @@
             BookingCode: BookingCode,
             CustomerDetails: [{ CustomerNames }],
             // ClientReferenceId,
-            // BookingReferenceId,
+            HotelCode: tbocode,
             TotalFare: TotalFare,
             EmailId: EmailId,
             PhoneNumber: PhoneNumber,
             PaymentInfo: {
-                CardNumber: CardNumber,
                 CvvNumber: CvvNumber,
+                CardNumber: CardNumber,
                 CardExpirationMonth: CardExpirationMonth,
                 CardExpirationYear: CardExpirationYear,
                 CardHolderFirstName: CardHolderFirstName,
@@ -141,9 +142,8 @@
             CheckOut: checkOut,
             NoOfAdults: noOfAdults,
             NoOfChildren: noOfChildren,
-            CardHolderAddress: CardHolderAddress,
         };
-        console.log(data);
+        // console.log(data);
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $this.find("input[name='_token']").val(),
@@ -176,7 +176,7 @@
                 } else {
                     showError(
                         "Error occurred during processing",
-                        "#bookingfeedback"
+                        ".bookingfeedback"
                     );
                 }
             },

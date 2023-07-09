@@ -90,10 +90,16 @@ class TboService
         );
     }
 
-    function book($data)
+    static function book($data)
     {
         return Http::withHeaders(self::$headers)->post(
             config('services.hbo.base_url').'/book',$data
+        );
+    }
+
+    static function bookingdetails($data) {
+        return Http::withHeaders(self::$headers)->post(
+            config('services.hbo.base_url').'/BookingDetail',$data
         );
     }
 }
