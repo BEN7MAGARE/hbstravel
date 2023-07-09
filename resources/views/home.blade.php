@@ -5,11 +5,9 @@
 @endsection
 
 @section('content')
-
     <!-- banner starts -->
     @include('widgets.carousel')
     <!-- banner ends -->
-
 
     <!-- form main starts -->
     @include('widgets.searchForm')
@@ -143,8 +141,7 @@
 
     {{-- @include('widgets.topDeal') --}}
 
-    <!-- News Starts -->
-    <section class="news pb-2 pt-9">
+    {{-- <section class="news pb-2 pt-9">
         <div class="container">
             <div class="section-title text-center mb-5 pb-2 w-50 mx-auto">
                 <h2 class="m-0"><span>Articles & Travel</span> Guidings</h2>
@@ -274,8 +271,7 @@
                 </div>
             </div>
         </div>
-    </section>
-    <!-- News Ends -->
+    </section> --}}
 
     <!-- cta-horizon starts -->
     <div class="cta-horizon bg-blue pt-4 pb-2">
@@ -284,7 +280,69 @@
             <a href="#" class="nir-btn-black">Let's talk</a>
         </div>
     </div>
-    <!-- cta-horizon Ends -->
+
+    <div class="modal fade" id="numberOfRoomsModal" tabindex="-1" role="dialog" aria-labelledby="numberOfRoomsLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+            <div class="modal-content" id="vehiclePreviewSection">
+                <div class="modal-header">
+                    <div class="modal-title" id="carOverviewModalLabel">
+                        <p>Number of Rooms</p>
+                    </div>
+                    <button type="button" class="close btn btn-warning text-danger" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 form-group mb-2">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="number_of_rooms" id="numberOfRooms"
+                                    placeholder="Number of Rooms" aria-label="Number of Rooms" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="text-center">
+                            <button class="btn btn-md btn-primary" id="roomsCountAction" type="submit">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="childrenSearchModal" tabindex="-1" role="dialog" aria-labelledby="numberOfRoomsLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+            <div class="modal-content" id="vehiclePreviewSection">
+                <div class="modal-header">
+                    <div class="modal-title" id="carOverviewModalLabel">
+                        <p>Children Ages</p>
+                    </div>
+                    <button type="button" class="close btn btn-warning text-danger" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row" id="childrenAgeSection">
+
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="text-center">
+                            <button class="btn btn-md btn-warning" id="childrenAgesAdd" data-dismiss="modal">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 @endsection
 

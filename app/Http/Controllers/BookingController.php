@@ -20,14 +20,16 @@ class BookingController extends Controller
         $this->booking = new Booking();
         $this->payment = new Payment();
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $query = $this->booking->query();
+        if (auth()->user()->role !== "admin") {
+            $query->where('user_id', auth()->id());
+        }
+        $bookings = $query->with('user')->latest()->get();
+        // return $bookings;
+        return view('bookings.index', compact('bookings'));
     }
 
     function prebooking($code)
@@ -35,23 +37,19 @@ class BookingController extends Controller
         $data = [];
         $children = 0;
         $adults = 0;
-
         if (session()->has('search')) {
             $data = session("search");
             $adults += $data["rooms"][0]["Adults"];
             $children += $data["rooms"][0]["Children"];
         }
         $Amenities = array();
-
         $prebook = $this->service::prebook($code);
         if ($prebook["Status"]["Code"] === 200) {
             $hotel = $prebook["HotelResult"];
-            // dd($hotel);
             $rooms = $hotel[0]["Rooms"];
             if (isset($rooms[0]['Amenities'])) {
                 array_push($Amenities, $rooms[0]['Amenities']);
             }
-            // dd($rooms);
             $hotelinfo = $this->hotel->where('tbo_code', $hotel[0]["HotelCode"])->first();
             return view('hotel.book', compact('hotel', 'hotelinfo', 'rooms', 'Amenities', 'data', 'adults', 'children'));
         } else {
@@ -59,21 +57,6 @@ class BookingController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $hotel = $this->hotel->where('tbo_code', $request->HotelCode)->first();
@@ -202,15 +185,17 @@ class BookingController extends Controller
             // "PaymentMode" => "Limit",
         ];
         // return $data;
-        $detail = ["BookingReferenceId" => "1688726644Us173", "PaymentMode" => "Limit"];
+        // $detail = ["BookingReferenceId" => "1688726644Us173", "PaymentMode" => "Limit"];
 
         // return $data;
-        $result = $this->service::bookingdetails($detail);
-        // $result = $this->service::book($data);
-        return json_encode($result);
+        // $result = $this->service::bookingdetails($detail);
+        $result = $this->service::book($data);
+        // return json_encode($result);
         // return $result;
         if ($result["Status"]["Code"] == 200) {
-            $status = "success";
+            $booking->confimationnumber = $result["ConfirmationNumber"];
+            $booking->status = 'successful';
+            $booking->update();
             $message = $result["Status"]["Description"];
         } else {
             $status = "error";
@@ -219,12 +204,7 @@ class BookingController extends Controller
         return json_encode(["status" => $status, 'message' => $message]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //

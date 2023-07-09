@@ -303,19 +303,17 @@ class HotelController extends Controller
 
     public function searchApi(TboService $service)
     {
-        // return request()->roomsCount;
+        // return request()->all();
         $rooms = [
             ...array_map(function ($index) {
                 return [
                     "Adults" => request()->input('adults'),
                     "Children" => request()->input('children') ?? 0,
-                    "ChildrenAges" => array_map(
-                        fn ($childIndex) => 0,
-                        range(1, request()->input('children' . $index) ?? 0)
-                    )
+                    "ChildrenAges" => explode(',', request()->input('ChildrenAges')[0])
                 ];
-            }, range(1, 1))
+            }, range(1, request()->roomsCount))
         ];
+        // return $rooms;
         $values = ["checkin" => request()->checkIn, "checkout" => request()->checkOut, 'adults' => request()->input('adults'), 'children' => request()->input('children')];
         session()->put('search', [
             'country' => request()->countries,
@@ -331,9 +329,20 @@ class HotelController extends Controller
             request()->checkOut,
             $rooms
         );
+        /** Search params */
+        // $result = [
+        //     $hotelcodes,
+        //     request()->checkIn,
+        //     request()->checkOut,
+        //     $rooms
+        // ];
+        // return $result;
+        // //
+        // return $result["Status"]["Description"];
+        // return $result;
         if ($result["Status"]["Code"] !== 200) {
             session()->put('errors', $result["Status"]["Description"]);
-            return redirect()->back();
+            return redirect()->back()->withErrors($result["Status"]["Description"]);
         }
         $data = [];
         $hotels = $result['HotelResult'];

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Hotel extends Model
 {
@@ -31,7 +32,7 @@ class Hotel extends Model
         's2c',
         'ranking',
     ];
-    
+
     Protected $guarded = [];
 
     public function images()
@@ -45,5 +46,10 @@ class Hotel extends Model
     public function rooms()
     {
         return $this->hasMany(Room::class);
+    }
+    
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class, 'hotel_id', 'id');
     }
 }

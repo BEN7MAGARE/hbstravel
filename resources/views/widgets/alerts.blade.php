@@ -23,12 +23,12 @@
                 @endforeach
             </div>
         @else
-            {{-- <div class="alert alert-danger alert-dismissable" style="padding: 1em;">
+            <div class="alert alert-danger alert-dismissable" style="padding: 1em;">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
                 </button>
                     <strong>Error!</strong>
-                    {{ $errors[0] }}
-            </div> --}}
+                    {{ $errors }}
+            </div>
         @endif
     </div>
 @endif

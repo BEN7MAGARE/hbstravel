@@ -23,7 +23,6 @@
         noOfChildren = $("#noOfChildren"),
         adultsNameSection = $("#adultsNameSection"),
         childrenNamesSection = $("#childrenNamesSection");
-    // $('#noOfAdults')
     noOfAdults.on("change", function () {
         let no = $(this).val(),
             div = "";
@@ -109,10 +108,10 @@
             };
             CustomerNames.push(obj);
         });
+
         let data = {
             BookingCode: BookingCode,
             CustomerDetails: [{ CustomerNames }],
-            // ClientReferenceId,
             HotelCode: tbocode,
             TotalFare: TotalFare,
             EmailId: EmailId,
@@ -143,7 +142,7 @@
             NoOfAdults: noOfAdults,
             NoOfChildren: noOfChildren,
         };
-        // console.log(data);
+
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $this.find("input[name='_token']").val(),

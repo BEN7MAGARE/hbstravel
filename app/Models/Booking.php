@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
 class Booking extends Model
@@ -31,7 +32,17 @@ class Booking extends Model
 
     function getref() {
         $prevbooking = $this->orderBy('id', 'DESC')->first();
-        $ref_no = (!is_null($prevbooking) && $prevbooking !== 1) ? strtotime(now()).Str::random(3).$prevbooking->id + 1 : strtotime(now()). Str::random(3).'1';
+        $ref_no = (!is_null($prevbooking) && $prevbooking !== 1) ? strtotime(now()).strtoupper(Str::random(3)).$prevbooking->id + 1 : strtotime(now()). Str::random(3).'1';
         return $ref_no;
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function hotel(): BelongsTo
+    {
+        return $this->belongsTo(Hotel::class, 'hotel_id');
     }
 }

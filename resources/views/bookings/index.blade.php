@@ -9,44 +9,6 @@
 
 @section('content')
     <div class="dashboard-content">
-        <div class="row">
-            <div class="col-lg-4 col-md-12 col-xs-12">
-                <div class="dashboard-stat mb-4">
-                    <div class="dashboard-stat-content">
-                        <h4>{{ $activebooking }}</h4> <span>Active Bookings</span>
-                    </div>
-                    <div class="dashboard-stat-icon"><i class="im im-icon-Map2"></i></div>
-                    <div class="dashboard-stat-item">
-                        <p>Someone bookmarked your listing!</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 col-xs-12">
-                <div class="dashboard-stat mb-4">
-                    <div class="dashboard-stat-content">
-                        <h4>{{ $bookingsscount }}</h4> <span>Total Bookings</span>
-                    </div>
-                    <div class="dashboard-stat-icon"><i class="im im-icon-Line-Chart"></i></div>
-                    <div class="dashboard-stat-item">
-                        <p>All bookings</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 col-xs-12">
-                <div class="dashboard-stat mb-4">
-                    <div class="dashboard-stat-content">
-                        <h4>{{ $hotelscount }}</h4> <span>Total Reviews</span>
-                    </div>
-                    <div class="dashboard-stat-icon"><i class="im im-icon-Add-UserStar"></i></div>
-                    <div class="dashboard-stat-item">
-                        <p>Hotels options</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
         <div class="row mb-4">
             <div class="col-lg-12 col-md-12 col-xs-12">
                 <div class="dashboard-list-box with-icons">
@@ -55,89 +17,46 @@
                     </div>
 
                     <div class="table-responsive table-desi">
-                        <table class="basic-table table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Country</th>
-                                    <th>Client</th>
-                                    <th>Changes</th>
-                                    <th>Budget</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><span class="">Australia</span>
-                                    </td>
-                                    <td>Beavis</td>
-                                    <td><span class="txt-success"><i class="fa fa-angle-up"
-                                                aria-hidden="true"></i><span>2.43%</span></span>
-                                    </td>
-                                    <td>
-                                        <span class="">$1478</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-success">Active</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="">Cuba</span>
-                                    </td>
-                                    <td>Felix</td>
-                                    <td><span class="txt-success"><i class="fa fa-angle-up"
-                                                aria-hidden="true"></i><span>1.43%</span></span>
-                                    </td>
-                                    <td>
-                                        <span class="">$951</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-danger">Closed</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="">France</span>
-                                    </td>
-                                    <td>Cannibus</td>
-                                    <td><span class="txt-success"><i class="fa fa-angle-up"
-                                                aria-hidden="true"></i><span>8.43%</span></span>
-                                    </td>
-                                    <td>
-                                        <span class="">$632</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-primary">Hold</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="">Norway</span>
-                                    </td>
-                                    <td>Neosoft</td>
-                                    <td><span class="txt-success"><i class="fa fa-angle-up"
-                                                aria-hidden="true"></i><span>7.43%</span></span>
-                                    </td>
-                                    <td>
-                                        <span class="">$325</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-primary">Hold</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="">South Africa</span>
-                                    </td>
-                                    <td>Hencework</td>
-                                    <td><span class="txt-success"><i class="fa fa-angle-up"
-                                                aria-hidden="true"></i><span>9.43%</span></span>
-                                    </td>
-                                    <td>
-                                        <span>$258</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-success">Active</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        @if (auth()->user()->role === 'admin')
+                            <table class="basic-table table table-hover">
+                                <thead>
+                                    <td>Client</td>
+                                    <td>Hotel</td>
+                                    <td>Rooms</td>
+                                    <td>Info</td>
+                                    <td>Action</td>
+                                </thead>
+                                <tbody>
+                                    @foreach ($bookings as $booking)
+                                        @php
+                                            $user = $booking->user;
+                                        @endphp
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <table class="basic-table table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Client</th>
+                                        <th>Changes</th>
+                                        <th>Budget</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        @endif
+
                     </div>
                 </div>
             </div>
@@ -419,5 +338,4 @@
 @endsection
 
 @section('footer_scripts')
-
 @endsection
