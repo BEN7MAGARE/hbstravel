@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('fonts/line-icons.css') }}" type="text/css">
     <!-- App Style -->
-    {{-- <link rel="stylesheet" href="{{asset('css/iziToast.min.css')}}" type="text/css"> --}}
+    <link rel="stylesheet" href="{{asset('css/app.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}" type="text/css">
     @yield('header_styles')
 </head>

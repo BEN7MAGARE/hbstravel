@@ -27,31 +27,14 @@ class CreateHotelsTable extends Migration
             $table->string('category_group_code')->nullable();
             $table->string('chain_code')->nullable();
             $table->string('accommodation_type_code')->nullable();
-
-            //boardCodes à voir type
-            //segmentCodes à voir type
-            //address à voir type 
-            //boardCodes à voir type
-
             $table->string('postal_code')->nullable();
             $table->string('city')->nullable();
             $table->string('email')->nullable();
             $table->string('license')->nullable();
-
-            //phones FK
-            //rooms FK (rooms Tabel -> (room facilities , room stays )
-            //facilities FK
-            //terminals FK
-            //issues FK
-            //interestPoints FK
-            //images FK
-
             $table->string('web')->nullable();
             $table->string('last_update')->nullable();
             $table->string('s2c')->nullable();
             $table->integer('ranking')->nullable();
-
-            
             $table->timestamps();
         });
     }

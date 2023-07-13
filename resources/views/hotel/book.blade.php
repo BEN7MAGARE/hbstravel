@@ -6,6 +6,11 @@
 @section('header_styles')
     <link rel="stylesheet" href="{{ asset('css/iziToast.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
+    <style>
+        .lds-roller {
+            display: none;
+        }
+    </style>
 @endsection
 
 @php
@@ -493,9 +498,19 @@
                                             </div>
                                         </div>
                                         <div class="bookingfeedback"></div>
+                                        <div class="lds-roller">
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                            </div>
                                         <div class="col-lg-12">
                                             <div class="form-group mb-0">
-                                                <button type="submit" class="nir-btn w-100"><i class="fa fa-save"></i>
+                                                <button type="submit" id="bookingsubmit" class="nir-btn w-100"><i class="fa fa-save"></i>
                                                     Book</button>
                                             </div>
                                         </div>

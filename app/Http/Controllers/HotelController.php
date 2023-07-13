@@ -13,6 +13,7 @@ use App\Models\GroupCategory;
 use App\Models\Hotel;
 use App\Models\Image;
 use App\Services\TboService;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -136,6 +137,9 @@ class HotelController extends Controller
 
     public function search(Request $request)
     {
+        if (!isset($request->country_code)) {
+            return redirect('/');
+        }
         $country = $this->country->where('iso', $request->country_code)->first();
         $hotels = $this->hotel->where('country_code', $request->country_code)->paginate(20);
         $hotels->appends(request()->query());
@@ -188,15 +192,25 @@ class HotelController extends Controller
         $searchParams = session()->get('search');
         if (is_null($searchParams))
             return redirect()->back()->with('errors', 'No rooms set for your search');
-
+        // return [
+        //     [$hotel['tbo_code']],
+        //     $searchParams['checkIn'],
+        //     $searchParams['checkOut'],
+        //     $searchParams['rooms']
+        // ];
         $searchResult = $service::search(
             [$hotel['tbo_code']],
             $searchParams['checkIn'],
             $searchParams['checkOut'],
             $searchParams['rooms']
         );
-
         $hotelDetails = $service::getHotelDetails($hotel->tbo_code);
+        // return $hotelDetails;
+
+        if ($hotelDetails["Status"]["Code"] === 500) {
+            $message = $hotelDetails["Status"]["Description"];
+            return redirect('/')->withErrors($message);
+        }
 
         $hotelRoomsDetails = array_values(array_filter(array_map(
             function ($hotelRooms) use ($hotel) {
@@ -205,15 +219,9 @@ class HotelController extends Controller
             },
             $searchResult["HotelResult"]
         )))[0];
+
         $hotelImages = $hotelDetails['HotelDetails'][0]['Images'];
-        // $hotelImages = array_values(array_filter(array_map(
-        //     function ($image) {
-        //         if (@getimagesize($image))
-        //             return $image;
-        //     },
-        //     $hotelImages
-        // )));
-        // dd($hotelRoomsDetails["Rooms"]);
+
         $details = $hotelDetails['HotelDetails'][0];
         $hotelinfo = $searchResult["HotelResult"];
         $hotel = [
@@ -313,7 +321,6 @@ class HotelController extends Controller
                 ];
             }, range(1, request()->roomsCount))
         ];
-        // return $rooms;
         $values = ["checkin" => request()->checkIn, "checkout" => request()->checkOut, 'adults' => request()->input('adults'), 'children' => request()->input('children')];
         session()->put('search', [
             'country' => request()->countries,
@@ -322,7 +329,18 @@ class HotelController extends Controller
             'rooms' => $rooms,
         ]);
         $localhotels = Hotel::where('country_code', request()->country_code)->select('id', 'tbo_code', 'name', 'city', 'address')->get();
+        if ($localhotels->count() <= 0) {
+            return redirect()->back()->withErrors("No hotels found for your search");
+        }
         $hotelcodes = $localhotels->pluck("tbo_code")->chunk(100)->first()->toArray();
+
+        // return [
+        //     $hotelcodes,
+        //     request()->checkIn,
+        //     request()->checkOut,
+        //     $rooms
+        // ];
+
         $result = $service::search(
             $hotelcodes,
             request()->checkIn,
@@ -330,15 +348,7 @@ class HotelController extends Controller
             $rooms
         );
         /** Search params */
-        // $result = [
-        //     $hotelcodes,
-        //     request()->checkIn,
-        //     request()->checkOut,
-        //     $rooms
-        // ];
-        // return $result;
-        // //
-        // return $result["Status"]["Description"];
+
         // return $result;
         if ($result["Status"]["Code"] !== 200) {
             session()->put('errors', $result["Status"]["Description"]);
@@ -353,7 +363,7 @@ class HotelController extends Controller
                 $hotelDetails = $service::getHotelDetails($value['HotelCode']);
                 if ($hotelDetails["Status"]["Code"] == 500) {
                     $hotelRating = "";
-                }else {
+                } else {
                     $hotelRating = $hotelDetails['HotelDetails'][0]['HotelRating'];
                 }
                 $object = ['hotel' => $hotel, 'image' => $hotel?->images->first()?->path, 'currency' => $value["Currency"], 'rating' => $hotelRating, 'starting' => ["room" => $room["Name"][0], 'features' => $room["Inclusion"], 'price' => $room["DayRates"][0][0]["BasePrice"], 'fare' => $room["TotalFare"], 'tax' => $room["TotalTax"]]];

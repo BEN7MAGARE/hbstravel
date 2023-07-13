@@ -27,7 +27,7 @@ class BookingController extends Controller
         if (auth()->user()->role !== "admin") {
             $query->where('user_id', auth()->id());
         }
-        $bookings = $query->with('user')->latest()->get();
+        $bookings = $query->with('user', 'hotel')->latest()->paginate(10);
         // return $bookings;
         return view('bookings.index', compact('bookings'));
     }
@@ -43,7 +43,16 @@ class BookingController extends Controller
             $children += $data["rooms"][0]["Children"];
         }
         $Amenities = array();
+        // return $code;
+        if (session()->has('roomname')) {
+            session()->forget('roomname');
+        }
+        if (session()->has('inclusion')) {
+            session()->forget('inclusion');
+        }
         $prebook = $this->service::prebook($code);
+        session()->put('inclusion', $prebook["HotelResult"][0]["Inclusion"]);
+        session()->put('roomname', $prebook["HotelResult"][0]["Rooms"]);
         if ($prebook["Status"]["Code"] === 200) {
             $hotel = $prebook["HotelResult"];
             $rooms = $hotel[0]["Rooms"];
@@ -67,8 +76,8 @@ class BookingController extends Controller
             "tbocode" => $request->HotelCode,
             "ref_no" => $this->booking->getref(),
             "bookingcode" => $request->BookingCode,
-            "roomname" => $request->RoomName,
-            "inclusion" => $request->Inclusion,
+            "roomname" => session()->get('roomname'),
+            "inclusion" => session()->get('inclusion'),
             "no_of_adults" => $request->NoOfAdults,
             "no_of_children" => $request->NoOfChildren,
             "email" => $request->EmailId,
@@ -182,128 +191,33 @@ class BookingController extends Controller
             "EmailId" => $request->EmailId,
             // "PhoneNumber" => $request->PhoneNumber,
             // "BookingType" => "Voucher",
-            // "PaymentMode" => "Limit",
+            "PaymentMode" => "Limit",
         ];
-        // return $data;
-        // $detail = ["BookingReferenceId" => "1688726644Us173", "PaymentMode" => "Limit"];
-
-        // return $data;
-        // $result = $this->service::bookingdetails($detail);
         $result = $this->service::book($data);
-        // return json_encode($result);
-        // return $result;
         if ($result["Status"]["Code"] == 200) {
             $booking->confimationnumber = $result["ConfirmationNumber"];
             $booking->status = 'successful';
             $booking->update();
+            session()->forget('roomname');
+            session()->forget('inclusion');
             $message = $result["Status"]["Description"];
         } else {
             $status = "error";
             $message = $result["Status"]["Description"];
         }
+
         return json_encode(["status" => $status, 'message' => $message]);
     }
 
 
     public function show($id)
     {
-        //
+        $booking = $this->booking->find($id);
+        $detail = ["BookingReferenceId" => "1688726644Us173", "PaymentMode" => "Limit"];
+        $result = $this->service::bookingdetails(["BookingReferenceId" => $detail["BookingReferenceId"], "PaymentMode" => "Limit"]);
+        // $result = $this->service::bookingdetails(["BookingReferenceId" => $booking->BookingReferenceId, "PaymentMode" => "Limit"]);
+        return json_encode($result);
     }
-    //     {
-    //     "BookingCode": "1005552!TB!2!TB!649ad59a-b6b3-4874-82b2-29d684127123",
-    //     "CustomerDetails": [
-    //         {
-    //             "CustomerNames": [
-    //                 {
-    //                     "Title": "Mr",
-    //                     "FirstName": "Leilani",
-    //                     "LastName": "Wright",
-    //                     "Type": "Adult"
-    //                 },
-    //                 {
-    //                     "Title": "Ms",
-    //                     "FirstName": "Reuben",
-    //                     "LastName": "Mckay",
-    //                     "Type": "Adult"
-    //                 }
-    //             ]
-    //         }
-    //     ],
-    //     "HotelCode": "1005552",
-    //     "TotalFare": "1,818.36",
-    //     "EmailId": "goma@mailinator.com",
-    //     "PhoneNumber": "+11919151946",
-    //     "PaymentInfo": {
-    //         "CvvNumber": "675",
-    //         "CardNumber": "868445467899843",
-    //         "CardExpirationMonth": "2",
-    //         "CardExpirationYear": "2026",
-    //         "CardHolderFirstName": "Iona",
-    //         "CardHolderlastName": "Walker",
-    //         "BillingAmount": "2,536.30",
-    //         "BillingCurrency": "USD",
-    //         "CardHolderAddress": {
-    //             "AddressLine1": "98 Green Second Avenue",
-    //             "AddressLine2": "Iusto culpa volupta",
-    //             "City": "Facere eu eiusmod do",
-    //             "PostalCode": "Velit quae mollit d",
-    //             "CountryCode": "WS"
-    //         }
-    //     },
-    //     "DaysRate": "179.49 X +4 days",
-    //     "DaysPrice": "717.94",
-    //     "TotalTax": "0.00",
-    //     "ExtraGuestCharges": "0.00",
-    //     "CheckIn": "2023-06-30",
-    //     "CheckOut": "2023-07-04",
-    //     "NoOfAdults": "2",
-    //     "NoOfChildren": "0"
-    // }
-    // {
-    //     "BookingCode": "1005552!TB!2!TB!649ad59a-b6b3-4874-82b2-29d684127123",
-    //     "CustomerDetails": [
-    //         {
-    //             "CustomerNames": [
-    //                 {
-    //                     "Title": "Mr",
-    //                     "FirstName": "Leilani",
-    //                     "LastName": "Wright",
-    //                     "Type": "Adult"
-    //                 },
-    //                 {
-    //                     "Title": "Ms",
-    //                     "FirstName": "Reuben",
-    //                     "LastName": "Mckay",
-    //                     "Type": "Adult"
-    //                 }
-    //             ]
-    //         }
-    //     ],
-    //     "PaymentInfo": {
-    //         "CvvNumber": "675",
-    //         "CardNumber": "868445467899843",
-    //         "CardExpirationMonth": "2",
-    //         "CardExpirationYear": "2026",
-    //         "CardHolderFirstName": "Iona",
-    //         "CardHolderlastName": "Walker",
-    //         "BillingAmount": "2,536.30",
-    //         "BillingCurrency": "USD",
-    //         "CardHolderAddress": {
-    //             "AddressLine1": "98 Green Second Avenue",
-    //             "AddressLine2": "Iusto culpa volupta",
-    //             "City": "Facere eu eiusmod do",
-    //             "PostalCode": "Velit quae mollit d",
-    //             "CountryCode": "WS"
-    //         }
-    //     },
-    //     "ClientReferenceId": "1687538698-10",
-    //     "BookingReferenceId": "1687582767-29",
-    //     "TotalFare": "1,818.36",
-    //     "EmailId": "goma@mailinator.com",
-    //     "PhoneNumber": "+11919151946",
-    //     "BookingType": "Voucher",
-    //     "PaymentMode": "Limit"
-    // }
 
     /**
      * Show the form for editing the specified resource.

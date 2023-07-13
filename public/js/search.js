@@ -77,9 +77,9 @@
             if (children > 0) {
                 for (let i = 1; i <= children; i++) {
                     childinput +=
-                        "<div class='row'><div class='col-md-6'><label>Child " +
+                        "<div class='col-md-12 row'><div class='col-md-4'><label>Child " +
                         i +
-                        " Age</label></div><div class='col-md-6'><input class='form-control childages' type='number' name='childAge" +
+                        " Age</label></div><div class='col-md-8'><input class='form-control childages' type='number' name='childAge" +
                         i +
                         "' required></div></div>";
                 }

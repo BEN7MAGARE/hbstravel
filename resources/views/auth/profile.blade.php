@@ -1,4 +1,8 @@
-@extends('layouts.dashboard')
+@if (auth()->user()->role === "admin")
+@extends('layouts.admin')
+@else
+@extends('layouts.user')
+@endif
 @section('title')
     Profile @parent
 @endsection

@@ -51,6 +51,8 @@
 
     $("#bookingForm").on("submit", function (event) {
         event.preventDefault();
+        $(".lds-roller").show();
+        $("#bookingsubmit").prop({ disabled: true });
         let $this = $(this),
             dayrate = $("#dayrate").val(),
             daysprice = $("#daysprice").val(),
@@ -60,7 +62,7 @@
             grandTotal = $("#grandTotal").val(),
             checkIn = $(".checkInVal").val(),
             checkOut = $(".checkOutVal").val(),
-            tbocode = $('#TboCode').val(),
+            tbocode = $("#TboCode").val(),
             noOfAdults = $("#noOfAdults").val(),
             noOfChildren = $("#noOfChildren").val(),
             adultsNameSection = $("#adultsNameSection"),
@@ -153,18 +155,20 @@
             url: "/bookings",
             data: data,
             success: function (params) {
-                $this.find("button[type='submit']").prop("disabled", false);
+                $(".lds-roller").hide();
+                $("#bookingsubmit").prop({ disabled: false });
                 console.log(params);
                 let result = JSON.parse(params);
                 if (result.status == "success") {
                     showSuccess(result.message, "#bookingfeedback");
                     $this.trigger("reset");
                 } else {
-                    showError(result.error, "#bookingfeedback");
+                    showError(result.message, "#bookingfeedback");
                 }
             },
             error: function (error) {
-                $this.find("button[type='submit']").prop("disabled", false);
+                $(".lds-roller").hide();
+                $("#bookingsubmit").prop({ disabled: false });
                 console.log(error);
                 if (error.status == 422) {
                     var errors = "";

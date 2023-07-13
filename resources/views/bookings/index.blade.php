@@ -1,10 +1,19 @@
-@extends('layouts.dashboard')
+@if (auth()->user()->role === "admin")
+@extends('layouts.admin')
+@else
+@extends('layouts.user')
+@endif
 
 @section('title')
     Dashboard @parent
 @endsection
 
 @section('header_styles')
+<style>
+    .dropdown {
+        list-style: none;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -16,9 +25,9 @@
                         <h4 class="mb-0">Bookings</h4>
                     </div>
 
-                    <div class="table-responsive table-desi">
+                    <div class="">
                         @if (auth()->user()->role === 'admin')
-                            <table class="basic-table table table-hover">
+                            <table class="table table-hover">
                                 <thead>
                                     <td>Client</td>
                                     <td>Hotel</td>
@@ -30,29 +39,101 @@
                                     @foreach ($bookings as $booking)
                                         @php
                                             $user = $booking->user;
+                                            $hotel = $booking->hotel;
+                                            $country = \App\Models\Country::where('iso',$hotel->country_code)->first();
                                         @endphp
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>
+                                                <p>{{ $user->name }}</p>
+                                                <p>{{ $user->email }}</p>
+                                                <p>{{ $user->phone }}</p>
+                                            </td>
+
+                                            <td>
+                                                <p>{{ $hotel->name }}</p>
+                                                <p>{{ $hotel->address }}</p>
+                                                <p>{{ $hotel->city.', '.$country->name }}</p>
+                                            </td>
+
+                                            <td>
+                                                <p>{{ $booking->roomname }}</p>
+                                                <p>{{ $booking->inclusion }}</p>
+                                            </td>
+
+                                            <td>
+                                                <p>{{ $booking->checkin.' - '.$booking->checkout }}</p>
+                                                <p><b>Adults: </b>{{ $booking->no_of_adults }}</p>
+                                                <p><b>Children: </b>{{ $booking->no_of_children }}</p>
+                                                <p>{{ $booking->email }}</p>
+                                                <p>{{ $booking->phone }}</p>
+                                            </td>
+
+                                            <td>
+                                                <li class="dropdown" style="list-style: none;"><a href="#" data-toggle="dropdown"
+                                                        class="btn btn-primary btn-round btn-sm btn-floated"><b>Action</b></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li class="dropdown-item"><a href="#" id="bookingDetailsModalToggle"
+                                                                data-toggle="modal"
+                                                                data-target="#bookingDetailsModal"
+                                                                data-id="{{ $booking->id }}"><i
+                                                                    class="fa fa-eye text-success"></i>&nbsp;View</a></li>
+                                                    </ul>
+                                                </li>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         @else
-                            <table class="basic-table table table-hover">
+                        <table class="table table-hover">
                                 <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Client</th>
-                                        <th>Changes</th>
-                                        <th>Budget</th>
-                                        <th>Status</th>
-                                    </tr>
+                                    <td>Hotel</td>
+                                    <td>Rooms</td>
+                                    <td>Booking</td>
+                                    <td>Action</td>
                                 </thead>
                                 <tbody>
+                                    @foreach ($bookings as $booking)
+                                        @php
+                                            $user = $booking->user;
+                                            $hotel = $booking->hotel;
+                                            $country = \App\Models\Country::where('iso',$hotel->country_code)->first();
+                                        @endphp
+                                        <tr>
 
+                                            <td>
+                                                <p>{{ $hotel->name }}</p>
+                                                <p>{{ $hotel->address }}</p>
+                                                <p>{{ $hotel->city.', '.$country->name }}</p>
+                                            </td>
+
+                                            <td>
+                                                <p>{{ $booking->roomname }}</p>
+                                                <p>{{ $booking->inclusion }}</p>
+                                            </td>
+
+                                            <td>
+                                                <p>{{ $booking->checkin.' - '.$booking->checkout }}</p>
+                                                <p><b>Adults: </b>{{ $booking->no_of_adults }}</p>
+                                                <p><b>Children: </b>{{ $booking->no_of_children }}</p>
+                                                <p>{{ $booking->email }}</p>
+                                                <p>{{ $booking->phone }}</p>
+                                            </td>
+
+                                            <td>
+                                                <li class="dropdown" style="list-style: none;"><a href="#" data-toggle="dropdown"
+                                                        class="btn btn-primary btn-round btn-sm btn-floated"><b>Action</b></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li class="dropdown-item"><a href="#" id="bookingDetailsModalToggle"
+                                                                data-toggle="modal"
+                                                                data-target="#bookingDetailsModal"
+                                                                data-id="{{ $booking->id }}"><i
+                                                                    class="fa fa-eye text-success"></i>&nbsp;View</a></li>
+                                                    </ul>
+                                                </li>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         @endif
@@ -61,281 +142,51 @@
                 </div>
             </div>
         </div>
-        <div class="row mb-4">
-            <div class="col-lg-12 col-md-12 col-xs-12">
-                <div class="dashboard-list-box with-icons">
-                    <div class="dashboard-title">
-                        <h4 class="mb-0">User Details</h4>
-                        <p class="mb-0">Airtport Hotels The Right Way To Start A Short Break
-                            Holiday</p>
-                    </div>
-                    <div class="table-responsive table-desi">
-                        <table class="basic-table table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>User</th>
-                                    <th>Name</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                    <th>Country</th>
-                                    <th>Enquiry</th>
-                                    <th>Bookings</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/1.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><a href="#"><span>Marsha Hogan</span></a>
-                                    </td>
-                                    <td>+01 3214 6522</td>
-                                    <td>chadengle@dummy.com</td>
-                                    <td>Australia</td>
-                                    <td>
-                                        <span class="label text-danger">12</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-success">24</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/2.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><a href="#"><span>Marsha Hogan</span></a>
-                                    </td>
-                                    <td>+01 3214 6522</td>
-                                    <td>chadengle@dummy.com</td>
-                                    <td>Australia</td>
-                                    <td>
-                                        <span class="label text-danger">12</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-success">24</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/1.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><a href="#"><span>Marsha Hogan</span></a>
-                                    </td>
-                                    <td>+01 3214 6522</td>
-                                    <td>chadengle@dummy.com</td>
-                                    <td>Australia</td>
-                                    <td>
-                                        <span class="label text-danger">12</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-success">24</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/2.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><a href="#"><span>Marsha Hogan</span></a>
-                                    </td>
-                                    <td>+01 3214 6522</td>
-                                    <td>chadengle@dummy.com</td>
-                                    <td>Australia</td>
-                                    <td>
-                                        <span class="label text-danger">12</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-success">24</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/1.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><a href="#"><span>Marsha Hogan</span></a>
-                                    </td>
-                                    <td>+01 3214 6522</td>
-                                    <td>chadengle@dummy.com</td>
-                                    <td>Australia</td>
-                                    <td>
-                                        <span class="label text-danger">12</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-success">24</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
+    </div>
+@endsection
 
-            <div class="col-lg-7 col-md-12 col-xs-12 traffic">
-                <div class="dashboard-list-box with-icons">
-                    <div class="dashboard-title">
-                        <h4 class="mb-0">Listing Enquiry</h4>
-                        <p class="mb-0">Airtport Hotels The Right Way To Start A Short Break
-                            Holiday</p>
+<div class="modal fade" id="bookingDetailsModal" tabindex="-1" role="dialog" aria-labelledby="numberOfRoomsLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <p>Booking Details</p>
                     </div>
-                    <div class="table-responsive table-desi">
-                        <table class="basic-table table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Listing</th>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>City</th>
-                                    <th>Enquiry</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/2.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><span>Taaj Club, USA</span>
-                                    </td>
-                                    <td>12 may</td>
-                                    <td>Hawaii</td>
-                                    <td>
-                                        <span class="label text-success">15</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/1.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><span>Grand Hotel,Brazil</span>
-                                    </td>
-                                    <td>07 aug</td>
-                                    <td>Hawaii</td>
-                                    <td>
-                                        <span class="label text-success">05</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/2.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><span>Grand Pales,India</span>
-                                    </td>
-                                    <td>18 jun</td>
-                                    <td>Hawaii</td>
-                                    <td>
-                                        <span class="label text-success">35</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/2.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><span>Palace Hotel, China</span>
-                                    </td>
-                                    <td>09 apr</td>
-                                    <td>Hawaii</td>
-                                    <td>
-                                        <span class="label text-success">24</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/1.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><span>First Hotel,Germany</span>
-                                    </td>
-                                    <td>21 jun</td>
-                                    <td>Hawaii</td>
-                                    <td>
-                                        <span class="label text-success">18</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <button type="button" class="close btn btn-warning text-danger" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </div>
-            <div class="col-lg-5 col-md-12 col-xs-12 traffic">
-                <div class="dashboard-list-box with-icons">
-                    <div class="dashboard-title">
-                        <h4 class="mb-0">Social Media</h4>
-                        <p class="mb-0">Airtport Hotels The Right Way To Start A Short</p>
-                    </div>
-                    <div class="table-responsive table-desi">
-                        <table class="basic-table table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Media</th>
-                                    <th>Name</th>
-                                    <th>Share</th>
-                                    <th>Like</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><i class="fab fa-facebook"></i></td>
-                                    <td><span>Linked In perfect</span>
-                                    </td>
-                                    <td>15K</td>
-                                    <td>18K</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fab fa-twitter"></i></td>
-                                    <td><span>Twitter perfect</span>
-                                    </td>
-                                    <td>15K</td>
-                                    <td>18K</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fab fa-facebook"></i></td>
-                                    <td><span>Facebook perfect</span>
-                                    </td>
-                                    <td>15K</td>
-                                    <td>18K</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fab fa-google"></i></td>
-                                    <td><span>Google perfect</span>
-                                    </td>
-                                    <td>15K</td>
-                                    <td>18K</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fab fa-youtube"></i></td>
-                                    <td><span>YouTube perfect</span>
-                                    </td>
-                                    <td>15K</td>
-                                    <td>18K</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fab fa-whatsapp"></i></td>
-                                    <td><span>WhatsApp perfect</span>
-                                    </td>
-                                    <td>15K</td>
-                                    <td>18K</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fab fa-twitter"></i></td>
-                                    <td><span>Twitter perfect</span>
-                                    </td>
-                                    <td>15K</td>
-                                    <td>18K</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fab fa-youtube"></i></td>
-                                    <td><span>YouTube perfect</span>
-                                    </td>
-                                    <td>15K</td>
-                                    <td>18K</td>
-                                </tr>
-                            </tbody>
-                        </table>
+
+                <div class="modal-body" id="bookindDetailsSection">
+                    <div class="lds-roller">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-@endsection
 
 @section('footer_scripts')
+
+<script>
+    (function() {
+        $('body').on('click','#bookingDetailsModalToggle', function(event) {
+            let booking_id = $(this).data('id');
+            console.log(booking_id);
+            $.getJSON('/bookings/'+booking_id, function(booking) {
+                console.log(booking);
+            });
+        })
+    })()
+</script>
 @endsection

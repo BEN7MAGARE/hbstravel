@@ -40,9 +40,9 @@
                     <div id="Adults1" class="form-group col-md-2" style="display: block;">
                         <div class="input-box">
                             <i class="fa fa-male"></i>
-                            <select required id="adultsInput1" class="form-control form-control-lg" name="adults">
+                            <select required id="adultsInput1" class="form-control form-control-lg" name="adults" value="{{ old('adults') }}">
                                 <option value="" disabled selected>Adults</option>
-                                @for ($i = 1; $i <= 10; $i++)
+                                @for ($i = 0; $i <= 10; $i++)
                                     <option value="{{ $i }}">{{ $i }}</option>
                                 @endfor
                             </select>
@@ -52,7 +52,7 @@
                     <div id="Children1" class="form-group col-md-2" style="display: block;">
                         <div class="input-box">
                             <i class="fa fa-child"></i>
-                            <select id="childrenInput1" class="form-control form-control-lg" name="children">
+                            <select id="childrenInput1" class="form-control form-control-lg" name="children" value="{{ old('children') }}">
                                 <option value="" disabled selected>Children</option>
                                 @for ($i = 0; $i <= 10; $i++)
                                     <option value="{{ $i }}">{{ $i }}</option>

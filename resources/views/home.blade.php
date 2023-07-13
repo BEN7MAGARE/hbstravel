@@ -329,7 +329,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="row" id="childrenAgeSection">
+                    <div class="row mt-4" id="childrenAgeSection">
 
                     </div>
 
