@@ -22,7 +22,6 @@
         <div class="dot-overlay"></div>
     </section>
 
-
     <section class="blog trending destination-b">
         <div class="container">
             <div class="row">
@@ -144,7 +143,7 @@
                                             <p>{{ $item['Inclusion'] }}</p>
                                         </div>
                                         <a href="{{ route('prebooking', $item['BookingCode']) }}" class="nir-btn">Book
-                                        Now</a>
+                                            Now</a>
                                     </div>
                                 </div>
                             @else
@@ -160,26 +159,12 @@
                                             <p>{{ $item['Inclusion'] }}</p>
                                         </div>
                                         <a href="{{ route('prebooking', $item['BookingCode']) }}" class="nir-btn">Book
-                                        Now</a>
+                                            Now</a>
                                     </div>
-
 
                                 </div>
                             @endif
                         @endforeach
-                    </div>
-
-
-                    <div class="description mb-2">
-                        <h4>What to Expect</h4>
-                        <div class="row">
-                            @for ($i = 0; $i < count($hotel['facilities']); $i++)
-                                <div class="col-md-6">
-                                    <p><i class="fa fa-check text-success mr-1"></i>&nbsp;{{ $hotel['facilities'][$i] }}</p>
-                                </div>
-                            @endfor
-                        </div>
-
                     </div>
 
                     <div class="description mb-2">
@@ -232,9 +217,6 @@
                         </div>
                     </div>
 
-
-
-
                     <div class="single-map mb-4">
                         <h4>Map</h4>
                         <div class="map">
@@ -244,9 +226,6 @@
                             <input type="hidden" name="mapLatitude" id="mapLatitude" value="{{ $maps[0] }}">
                             <input type="hidden" name="mapLongitude" id="mapLongitude" value="{{ $maps[1] }}">
                             <div style="width: 100%" id="hotelMap">
-                                {{-- <iframe height="400"
-                                        src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=+(mangal%20bazar)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe> --}}
-
                             </div>
                         </div>
                     </div>
@@ -256,78 +235,19 @@
             <div class="col-md-4 col-xs-12">
                 <div class="sidebar-sticky">
                     <div class="list-sidebar">
-                        {{-- <div class="sidebar-item">
-                            <form class="form-content">
-                                <h4 class="title white text-center">MAKE A BOOKING</h4>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <span class="white">Your choosen date is</span>
-                                            <h3 class="choosen-date white mb-0"><i class="fa fa-calendar"></i>
-                                                @php
-                                                    $startDate = new DateTime($hotel['checkout']);
-                                                    $endDate = new DateTime($hotel['checkin']);
-
-                                                    $interval = $endDate->diff($startDate);
-                                                    $daysDifference = $interval->days;
-                                                @endphp
-                                             {{ date('d', strtotime($hotel['checkin']))  -
-                                                date('d M, Y', strtotime($hotel['checkout'])) }} <small
-                                                    class="d-block font-weight-normal">({{ $daysDifference }} days) </small></h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label class="white">No. Of People</label>
-                                            <div class="input-box">
-                                                <i class="flaticon-add-user"></i>
-                                                <select class="form-control form-control-md" id="numberofpeople"
-                                                    style="display: none;">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group bg-white p-3">
-                                            <ul>
-                                                <li class="d-block pb-1">$150.00 x 2 guests<span
-                                                        class="float-right pink">$300.00</span></li>
-                                                <li class="d-block pb-1">Booking fee + tax<span
-                                                        class="float-right pink">$10.00</span></li>
-                                                <li class="d-block  pb-1">Book now &amp; Save<span
-                                                        class="float-right  pink">-$15</span></li>
-                                                <li class="d-block pb-1">Other fees<span
-                                                        class="float-right pink">Free</span></li>
-                                                <li class="d-block border-t">
-                                                    <div class="pt-1">
-                                                        <span>Total</span><span class="float-right pink">$350.00</span>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-12">
-                                        <div class="form-group mb-0">
-                                            <a href="#" class="nir-btn w-100">Instant Book</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div> --}}
-
                         <div class="sidebar-item">
-                            <div class="sidebar-contact text-center bg-navy">
-                                <i class=" fa fa-phone-alt white"></i>
-                                <h3 class="white"><span>Book</span> by phone</h3>
-                                <a href="tel://{{ $hotel['phonenumber'] }}"
-                                    class="phone white">{{ $hotel['phonenumber'] }}</a>
-                                <small class="white d-block mt-2"></small>
+                            <div class="description mb-2">
+                                <h4>What to Expect</h4>
+                                <div class="row">
+                                    @for ($i = 0; $i < count($hotel['facilities']); $i++)
+                                        <div class="col-md-12">
+                                            <p><i
+                                                    class="fa fa-check text-success mr-1"></i>&nbsp;{{ $hotel['facilities'][$i] }}
+                                            </p>
+                                        </div>
+                                    @endfor
+                                </div>
+
                             </div>
                         </div>
                     </div>
