@@ -77,11 +77,11 @@
             if (children > 0) {
                 for (let i = 1; i <= children; i++) {
                     childinput +=
-                        "<div class='col-md-12 row'><div class='col-md-4'><label>Child " +
+                        "<div class='form-group'><label>Child " +
                         i +
-                        " Age</label></div><div class='col-md-8'><input class='form-control childages' type='number' name='childAge" +
+                        " Age</label><input class='form-control childages' type='number' name='childAge" +
                         i +
-                        "' required></div></div>";
+                        "' required></div>";
                 }
                 $("#childrenAgeSection").html(childinput);
                 $("#childrenSearchModal").modal("toggle");

@@ -131,16 +131,8 @@
 
     </footer>
 
-    <!-- footer ends -->
-
-
-
-    <!-- Back to top start -->
-
     <div id="back-to-top">
 
         <a href="#"></a>
 
     </div>
-
-    <!-- Back to top ends -->

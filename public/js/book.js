@@ -145,6 +145,8 @@
             NoOfChildren: noOfChildren,
         };
 
+        console.log(data);
+
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $this.find("input[name='_token']").val(),
@@ -162,6 +164,7 @@
                 if (result.status == "success") {
                     showSuccess(result.message, "#bookingfeedback");
                     $this.trigger("reset");
+                    window.location.href = "/bookings";
                 } else {
                     showError(result.message, "#bookingfeedback");
                 }

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.admin')
 
 @section('title')
     Dashboard @parent
@@ -10,407 +10,119 @@
 @section('content')
     <div class="dashboard-content">
         <div class="row">
-            <div class="col-lg-4 col-md-12 col-xs-12">
+            <div class="col-lg-3 col-md-12 col-xs-12">
                 <div class="dashboard-stat mb-4">
                     <div class="dashboard-stat-content">
-                        <h4>{{ $activebooking }}</h4> <span>Active Bookings</span>
+                        <h4>{{ $activebookings }}</h4> <span>Active Bookings</span>
                     </div>
                     <div class="dashboard-stat-icon"><i class="im im-icon-Map2"></i></div>
                     <div class="dashboard-stat-item">
-                        <p>Someone bookmarked your listing!</p>
+                        <p>All active bookings. </p>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 col-xs-12">
+            <div class="col-lg-3 col-md-6 col-xs-12">
                 <div class="dashboard-stat mb-4">
                     <div class="dashboard-stat-content">
-                        <h4>{{ $bookingsscount }}</h4> <span>Total Bookings</span>
+                        <h4>{{ $bookingscount }}</h4> <span>Total Bookings</span>
                     </div>
                     <div class="dashboard-stat-icon"><i class="im im-icon-Line-Chart"></i></div>
                     <div class="dashboard-stat-item">
-                        <p>All bookings</p>
+                        <p>All time bookings. </p>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 col-xs-12">
+            <div class="col-lg-3 col-md-6 col-xs-12">
                 <div class="dashboard-stat mb-4">
                     <div class="dashboard-stat-content">
-                        <h4>{{ $hotelscount }}</h4> <span>Total Reviews</span>
+                        <h4>{{ $hotelscount }}</h4> <span>Hotels Available</span>
+                    </div>
+                    <div class="dashboard-stat-icon"><i class="im im-icon-hotel"></i></div>
+                    <div class="dashboard-stat-item">
+                        <p>All time bookings. </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-xs-12">
+                <div class="dashboard-stat mb-4">
+                    <div class="dashboard-stat-content">
+                        <h4>{{ $userscount }}</h4> <span>Customers</span>
                     </div>
                     <div class="dashboard-stat-icon"><i class="im im-icon-Add-UserStar"></i></div>
                     <div class="dashboard-stat-item">
-                        <p>Hotels options</p>
+                        <p><span class="text-primary">{{ $userswithbookingscount }}</span> Have booked so far. </p>
                     </div>
                 </div>
             </div>
-
         </div>
+
         <div class="row mb-4">
             <div class="col-lg-12 col-md-12 col-xs-12">
                 <div class="dashboard-list-box with-icons">
                     <div class="dashboard-title">
                         <h4 class="mb-0">Bookings</h4>
                     </div>
-
                     <div class="table-responsive table-desi">
                         <table class="basic-table table table-hover">
                             <thead>
                                 <tr>
+                                    <th>#</th>
+                                    <th>Ref NO</th>
                                     <th>Country</th>
-                                    <th>Client</th>
-                                    <th>Changes</th>
-                                    <th>Budget</th>
+                                    @if (auth()->user()->role === 'admin')
+                                        <th>Client</th>
+                                    @endif
+                                    <th>Hotel</th>
+                                    <th>Room</th>
+                                    <th>Cost</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><span class="">Australia</span>
-                                    </td>
-                                    <td>Beavis</td>
-                                    <td><span class="txt-success"><i class="fa fa-angle-up"
-                                                aria-hidden="true"></i><span>2.43%</span></span>
-                                    </td>
-                                    <td>
-                                        <span class="">$1478</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-success">Active</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="">Cuba</span>
-                                    </td>
-                                    <td>Felix</td>
-                                    <td><span class="txt-success"><i class="fa fa-angle-up"
-                                                aria-hidden="true"></i><span>1.43%</span></span>
-                                    </td>
-                                    <td>
-                                        <span class="">$951</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-danger">Closed</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="">France</span>
-                                    </td>
-                                    <td>Cannibus</td>
-                                    <td><span class="txt-success"><i class="fa fa-angle-up"
-                                                aria-hidden="true"></i><span>8.43%</span></span>
-                                    </td>
-                                    <td>
-                                        <span class="">$632</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-primary">Hold</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="">Norway</span>
-                                    </td>
-                                    <td>Neosoft</td>
-                                    <td><span class="txt-success"><i class="fa fa-angle-up"
-                                                aria-hidden="true"></i><span>7.43%</span></span>
-                                    </td>
-                                    <td>
-                                        <span class="">$325</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-primary">Hold</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="">South Africa</span>
-                                    </td>
-                                    <td>Hencework</td>
-                                    <td><span class="txt-success"><i class="fa fa-angle-up"
-                                                aria-hidden="true"></i><span>9.43%</span></span>
-                                    </td>
-                                    <td>
-                                        <span>$258</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-success">Active</span>
-                                    </td>
-                                </tr>
+                                @php
+                                    $i = 1;
+                                @endphp
+                                @foreach ($bookings as $booking)
+                                    <tr>
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{ $booking->ref_no }}</td>
+                                        <td><span class="">{{ $booking->hotel->country->name }}</span></td>
+                                        @if (auth()->user()->role === 'admin')
+                                            <td>{{ $booking->user->name }}</td>
+                                        @endif
+                                        <td><span class="txt-success">{{ $booking->hotel->name }}</span></td>
+                                        <td><span class="txt-success">{{ $booking->roomname }}</span></td>
+                                        <td>
+                                            <span
+                                                class="">{{ $booking->payment->BillingCurrency . ' ' . number_format($booking->payment->BillingAmount, 2) }}</span>
+                                        </td>
+                                        <td>
+                                            <span
+                                                class="label text-success">{{ $booking->status == 0 ? 'pending' : $booking->status }}</span>
+                                        </td>
+                                        <td>
+                                            <li class="dropdown" style="list-style: none;"><a href="#"
+                                                    data-toggle="dropdown"
+                                                    class="btn btn-primary btn-round btn-sm btn-floated"><b>Action</b></a>
+                                                <ul class="dropdown-menu">
+                                                    <li class="dropdown-item"><a href="#"
+                                                            id="bookingDetailsModalToggle" data-toggle="modal"
+                                                            data-target="#bookingDetailsModal"
+                                                            data-id="{{ $booking->id }}"><i
+                                                                class="fa fa-eye text-success"></i>&nbsp;View</a></li>
+                                                </ul>
+                                            </li>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mb-4">
-            <div class="col-lg-12 col-md-12 col-xs-12">
-                <div class="dashboard-list-box with-icons">
-                    <div class="dashboard-title">
-                        <h4 class="mb-0">User Details</h4>
-                        <p class="mb-0">Airtport Hotels The Right Way To Start A Short Break
-                            Holiday</p>
-                    </div>
-                    <div class="table-responsive table-desi">
-                        <table class="basic-table table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>User</th>
-                                    <th>Name</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                    <th>Country</th>
-                                    <th>Enquiry</th>
-                                    <th>Bookings</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/1.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><a href="#"><span>Marsha Hogan</span></a>
-                                    </td>
-                                    <td>+01 3214 6522</td>
-                                    <td>chadengle@dummy.com</td>
-                                    <td>Australia</td>
-                                    <td>
-                                        <span class="label text-danger">12</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-success">24</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/2.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><a href="#"><span>Marsha Hogan</span></a>
-                                    </td>
-                                    <td>+01 3214 6522</td>
-                                    <td>chadengle@dummy.com</td>
-                                    <td>Australia</td>
-                                    <td>
-                                        <span class="label text-danger">12</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-success">24</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/1.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><a href="#"><span>Marsha Hogan</span></a>
-                                    </td>
-                                    <td>+01 3214 6522</td>
-                                    <td>chadengle@dummy.com</td>
-                                    <td>Australia</td>
-                                    <td>
-                                        <span class="label text-danger">12</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-success">24</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/2.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><a href="#"><span>Marsha Hogan</span></a>
-                                    </td>
-                                    <td>+01 3214 6522</td>
-                                    <td>chadengle@dummy.com</td>
-                                    <td>Australia</td>
-                                    <td>
-                                        <span class="label text-danger">12</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-success">24</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/1.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><a href="#"><span>Marsha Hogan</span></a>
-                                    </td>
-                                    <td>+01 3214 6522</td>
-                                    <td>chadengle@dummy.com</td>
-                                    <td>Australia</td>
-                                    <td>
-                                        <span class="label text-danger">12</span>
-                                    </td>
-                                    <td>
-                                        <span class="label text-success">24</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-
-            <div class="col-lg-7 col-md-12 col-xs-12 traffic">
-                <div class="dashboard-list-box with-icons">
-                    <div class="dashboard-title">
-                        <h4 class="mb-0">Listing Enquiry</h4>
-                        <p class="mb-0">Airtport Hotels The Right Way To Start A Short Break
-                            Holiday</p>
-                    </div>
-                    <div class="table-responsive table-desi">
-                        <table class="basic-table table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Listing</th>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>City</th>
-                                    <th>Enquiry</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/2.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><span>Taaj Club, USA</span>
-                                    </td>
-                                    <td>12 may</td>
-                                    <td>Hawaii</td>
-                                    <td>
-                                        <span class="label text-success">15</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/1.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><span>Grand Hotel,Brazil</span>
-                                    </td>
-                                    <td>07 aug</td>
-                                    <td>Hawaii</td>
-                                    <td>
-                                        <span class="label text-success">05</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/2.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><span>Grand Pales,India</span>
-                                    </td>
-                                    <td>18 jun</td>
-                                    <td>Hawaii</td>
-                                    <td>
-                                        <span class="label text-success">35</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/2.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><span>Palace Hotel, China</span>
-                                    </td>
-                                    <td>09 apr</td>
-                                    <td>Hawaii</td>
-                                    <td>
-                                        <span class="label text-success">24</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="list-img"><img src="images/reviewer/1.jpg" alt=""
-                                                class="w-50"></span>
-                                    </td>
-                                    <td><span>First Hotel,Germany</span>
-                                    </td>
-                                    <td>21 jun</td>
-                                    <td>Hawaii</td>
-                                    <td>
-                                        <span class="label text-success">18</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-5 col-md-12 col-xs-12 traffic">
-                <div class="dashboard-list-box with-icons">
-                    <div class="dashboard-title">
-                        <h4 class="mb-0">Social Media</h4>
-                        <p class="mb-0">Airtport Hotels The Right Way To Start A Short</p>
-                    </div>
-                    <div class="table-responsive table-desi">
-                        <table class="basic-table table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Media</th>
-                                    <th>Name</th>
-                                    <th>Share</th>
-                                    <th>Like</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><i class="fab fa-facebook"></i></td>
-                                    <td><span>Linked In perfect</span>
-                                    </td>
-                                    <td>15K</td>
-                                    <td>18K</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fab fa-twitter"></i></td>
-                                    <td><span>Twitter perfect</span>
-                                    </td>
-                                    <td>15K</td>
-                                    <td>18K</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fab fa-facebook"></i></td>
-                                    <td><span>Facebook perfect</span>
-                                    </td>
-                                    <td>15K</td>
-                                    <td>18K</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fab fa-google"></i></td>
-                                    <td><span>Google perfect</span>
-                                    </td>
-                                    <td>15K</td>
-                                    <td>18K</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fab fa-youtube"></i></td>
-                                    <td><span>YouTube perfect</span>
-                                    </td>
-                                    <td>15K</td>
-                                    <td>18K</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fab fa-whatsapp"></i></td>
-                                    <td><span>WhatsApp perfect</span>
-                                    </td>
-                                    <td>15K</td>
-                                    <td>18K</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fab fa-twitter"></i></td>
-                                    <td><span>Twitter perfect</span>
-                                    </td>
-                                    <td>15K</td>
-                                    <td>18K</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fab fa-youtube"></i></td>
-                                    <td><span>YouTube perfect</span>
-                                    </td>
-                                    <td>15K</td>
-                                    <td>18K</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="text-center">
+                        <a href="{{ route('bookings.index') }}" class="btn btn-primary btn-sm">View more</a>
                     </div>
                 </div>
             </div>
@@ -418,6 +130,48 @@
     </div>
 @endsection
 
-@section('footer_scripts')
 
+<div class="modal fade" id="bookingDetailsModal" tabindex="-1" role="dialog" aria-labelledby="numberOfRoomsLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <p>Booking Details</p>
+                    </div>
+                    <button type="button" class="close btn btn-warning text-danger" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body" id="bookindDetailsSection">
+                    <div class="lds-roller">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@section('footer_scripts')
+<script>
+    (function() {
+        $('body').on('click','#bookingDetailsModalToggle', function(event) {
+            let booking_id = $(this).data('id');
+            console.log(booking_id);
+            $.getJSON('/bookings/'+booking_id, function(booking) {
+                console.log(booking);
+            });
+        })
+    })()
+</script>
 @endsection

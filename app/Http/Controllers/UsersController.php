@@ -21,7 +21,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('admin.users');
+        $users = $this->user->withCount('bookings')->orderBy('bookings_count', 'desc')->paginate(10);
+        return view('admin.users',compact('users'));
     }
 
     /**

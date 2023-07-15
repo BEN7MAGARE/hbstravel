@@ -178,7 +178,7 @@
                                     </div>
                                 </div>
 
-                                <div class="login-social border-t mt-1 pt-2 mb-1 text-center">
+                                {{-- <div class="login-social border-t mt-1 pt-2 mb-1 text-center">
                                     <p class="mb-2">OR continue with</p>
                                     <a href="{{ route('facebook.login') }}" class="btn-facebook"><i
                                             class="fab fa-facebook" aria-hidden="true"></i>
@@ -189,7 +189,7 @@
                                     <a href="#" class="btn-google"><i class="fab fa-google"
                                             aria-hidden="true"></i>
                                         Google</a>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="col-md-6">
                                 <div class="col-md-12">

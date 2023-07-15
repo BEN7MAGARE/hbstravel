@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app1')
 
 @section('title')
     Home @parent
@@ -274,12 +274,13 @@
     </section> --}}
 
     <!-- cta-horizon starts -->
-    <div class="cta-horizon bg-blue pt-4 pb-2">
+    
+    {{-- <div class="cta-horizon bg-blue pt-4 pb-2">
         <div class="container d-md-flex align-items-center justify-content-between">
             <h4 class="mb-2 white">Didn't find the service suite you! Need a custom service?</h4>
             <a href="#" class="nir-btn-black">Let's talk</a>
         </div>
-    </div>
+    </div> --}}
 
     <div class="modal fade" id="numberOfRoomsModal" tabindex="-1" role="dialog" aria-labelledby="numberOfRoomsLabel"
         aria-hidden="true">
@@ -329,7 +330,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="row mt-4" id="childrenAgeSection">
+                    <div class="row p-2" id="childrenAgeSection">
 
                     </div>
 

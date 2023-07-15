@@ -5015,11 +5015,11 @@ nav.navbar.navbar-default.navbar-sticky-in .logo-black {
 
 .banner .slider .swiper-container .swiper-slide .slide-inner .swiper-content>h1 {
 
-    font-size: 58px;
+    font-size: 33px;
 
     letter-spacing: 1px;
 
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .banner .slider .swiper-container .swiper-slide .slide-inner .swiper-content1 {
@@ -5284,7 +5284,7 @@ nav.navbar.navbar-default.navbar-sticky-in .logo-black {
     .banner .slider .swiper-container .swiper-slide .slide-inner .swiper-content1 h1,
     .banner .slider .swiper-container .swiper-slide .slide-inner .swiper-content2 h1 {
 
-        font-size: 48px;
+        font-size: 30px;
     }
 
     .banner .video-slider .swiper-content {
@@ -5294,7 +5294,7 @@ nav.navbar.navbar-default.navbar-sticky-in .logo-black {
 
     .banner .video-slider .swiper-content h1 {
 
-        font-size: 50px;
+        font-size: 30px;
     }
 
     .banner .banner-main .banner-content {
@@ -5398,12 +5398,12 @@ nav.navbar.navbar-default.navbar-sticky-in .logo-black {
 
     .banner .video-slider .swiper-content h1 {
 
-        font-size: 45px;
+        font-size: 30px;
     }
 
     .banner .banner-main .banner-content>h1 {
 
-        font-size: 45px;
+        font-size: 30px;
     }
 }
 

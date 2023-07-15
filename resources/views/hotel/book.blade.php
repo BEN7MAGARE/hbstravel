@@ -175,8 +175,6 @@
                             <div class="sidebar-item">
                                 <form class="form-content" action="{{ route('bookings.store') }}" method="POST"
                                     id="bookingForm">
-                                    <div id="bookingfeedback"></div>
-                                    <div class="bookingfeedback"></div>
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-12">
@@ -497,7 +495,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="bookingfeedback"></div>
+                                        <div id="bookingfeedback"></div>
                                         <div class="lds-roller">
                                                 <div></div>
                                                 <div></div>

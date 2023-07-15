@@ -50,10 +50,13 @@
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     @if (auth()->user()->role === 'admin')
                                         <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
+                                        <a class="dropdown-item" href="{{ route('bookings.index') }}">Bookings</a>
+                                        <a class="dropdown-item" href="{{ route('users.index') }}">Customers</a>
+                                        @else
+                                        <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
+                                        <a class="dropdown-item" href="{{ route('bookings.index') }}">My Bookings</a>
                                     @endif
-                                    <a class="dropdown-item" href="{{ route('bookings.index') }}">My Bookings</a>
-                                    <a class="dropdown-item" href="{{ route('profile') }}"><i class="sl sl-icon-user"></i>
-                                        &nbsp;Profile</a>
+                                    <a class="dropdown-item" href="{{ route('profile') }}"><i class="sl sl-icon-user"></i>&nbsp;Profile</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

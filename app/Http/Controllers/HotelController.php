@@ -84,7 +84,6 @@ class HotelController extends Controller
 
     public function store(HotelRequest $request)
     {
-
         $validated = $request->validated();
         $hotel = $this->hotel->create($validated);
         return json_encode(['status' => 'success', 'message' => 'Hotel added successfully']);
@@ -169,13 +168,15 @@ class HotelController extends Controller
         return json_encode($data);
     }
 
-
     public function getHotelsByCity($city)
     {
-        $hotels = $this->hotel->where('city', 'like', '%' . $city . '%')->paginate(20);
+        $query = $this->hotel->query();
+        $query = $query->where('city', 'like', '%' . $city . '%');
+        $hotelscount = $query->count();
+        $hotels = $query->paginate(20);
         $title = "Hotels in " . $city;
         $country = $this->country->where('iso', $hotels[0]->country_code)->first();
-        return view('hotel.list', compact('hotels', 'title', 'country'));
+        return view('hotel.list', compact('hotels', 'title', 'country', 'hotelscount'));
     }
 
     public function getHotelsByCountryCity($country, $city)

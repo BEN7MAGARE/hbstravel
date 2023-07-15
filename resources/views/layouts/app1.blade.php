@@ -44,12 +44,12 @@
         @include('widgets.modal')
 
         <!-- *Scripts* -->
-        {{-- <script src="{{asset('js/jquery-3.5.1.min.js')}}"></script> --}}
-        <script src="{{asset('js/components.js')}}"></script>
-        {{-- <script src="{{asset('js/particles.js')}}"></script>
+        <script src="{{asset('js/jquery-3.5.1.min.js')}}"></script>
+        {{-- <script src="{{asset('js/components.js')}}"></script> --}}
+        <script src="{{asset('js/particles.js')}}"></script>
         <script src="{{asset('js/particlerun.js')}}"></script>
-        <script src="{{asset('js/plugin.js')}}"></script> --}}
-        {{-- <script src="{{asset('js/main.js')}}"></script> --}}
+        <script src="{{asset('js/plugin.js')}}"></script>
+        <script src="{{asset('js/main.js')}}"></script>
         <script src="{{asset('js/custom-swiper.js')}}"></script>
         <script src="{{asset('js/custom-nav.js')}}"></script>
         <script src="{{asset('js/custom-date.js')}}"></script>

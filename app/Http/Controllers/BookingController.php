@@ -27,9 +27,12 @@ class BookingController extends Controller
         if (auth()->user()->role !== "admin") {
             $query->where('user_id', auth()->id());
         }
-        $bookings = $query->with('user', 'hotel')->latest()->paginate(10);
-        // return $bookings;
-        return view('bookings.index', compact('bookings'));
+        $bookings = $query->latest()->paginate(10);
+        if (auth()->user()->role === "admin") {
+            return view('bookings.index', compact('bookings'));
+        } else {
+            return view('users.bookings', compact('bookings'));
+        }
     }
 
     function prebooking($code)
@@ -51,8 +54,12 @@ class BookingController extends Controller
             session()->forget('inclusion');
         }
         $prebook = $this->service::prebook($code);
-        session()->put('inclusion', $prebook["HotelResult"][0]["Inclusion"]);
-        session()->put('roomname', $prebook["HotelResult"][0]["Rooms"]);
+        if (isset($prebook["HotelResult"][0]["Inclusion"])) {
+            session()->put('inclusion', $prebook["HotelResult"][0]["Inclusion"]);
+        }
+        if (isset($prebook["HotelResult"][0]["Rooms"])) {
+            session()->put('roomname', $prebook["HotelResult"][0]["Rooms"][0]["Name"][0]);
+        }
         if ($prebook["Status"]["Code"] === 200) {
             $hotel = $prebook["HotelResult"];
             $rooms = $hotel[0]["Rooms"];
@@ -105,7 +112,7 @@ class BookingController extends Controller
             'DaysPrice' => $request["DaysPrice"],
             'TotalTax' => $request["TotalTax"],
             'ExtraGuestCharges' => $request["ExtraGuestCharges"],
-            'BillingAmount' => $request["BillingAmount"],
+            'BillingAmount' => $request["PaymentInfo"]["BillingAmount"],
         ]);
 
         DB::commit();
@@ -214,8 +221,8 @@ class BookingController extends Controller
     {
         $booking = $this->booking->find($id);
         $detail = ["BookingReferenceId" => "1688726644Us173", "PaymentMode" => "Limit"];
-        $result = $this->service::bookingdetails(["BookingReferenceId" => $detail["BookingReferenceId"], "PaymentMode" => "Limit"]);
-        // $result = $this->service::bookingdetails(["BookingReferenceId" => $booking->BookingReferenceId, "PaymentMode" => "Limit"]);
+        // $result = $this->service::bookingdetails($detail);
+        $result = $this->service::bookingdetails(["BookingReferenceId" => $booking->BookingReferenceId, "PaymentMode" => "Limit"]);
         return json_encode($result);
     }
 

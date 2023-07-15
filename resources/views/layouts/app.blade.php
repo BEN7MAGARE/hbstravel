@@ -56,9 +56,9 @@
         <script src="{{asset('js/select2.min.js')}}"></script> --}}
     {{-- <script src="{{asset('js/iziToast.min.js')}}"></script> --}}
 
-    {{-- <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script> --}}
-    <script src="{{asset('js/components.js')}}"></script>
+    <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    {{-- <script src="{{asset('js/components.js')}}"></script> --}}
     <script src="{{ asset('js/plugin.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/custom-nav.js') }}"></script>

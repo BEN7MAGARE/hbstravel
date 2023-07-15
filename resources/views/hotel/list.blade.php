@@ -35,12 +35,14 @@
                                 <p class="m-0">Showing 1-{{ count($hotels) }} of {{ $hotelscount }} results</p>
                             </div>
                             <div class="click-menu d-flex align-items-center justify-content-between">
-                                <div class="change-list f-active mr-2"><a href="#"><i class="fa fa-bars"></i></a>
+                                <div class="change-list f-active mr-2">
+                                    <a href="#"><i class="fa fa-bars"></i></a>
                                 </div>
-                                <div class="change-grid"><a href="#"><i class="fa fa-th"></i></a>
+                                <div class="change-grid">
+                                    <a href="#"><i class="fa fa-th"></i></a>
                                 </div>
 
-                                <div class="sortby d-flex align-items-center justify-content-between ml-2">
+                                {{-- <div class="sortby d-flex align-items-center justify-content-between ml-2">
                                     <select class="niceSelect" style="display: none;">
                                         <option value="1">Sort By</option>
                                         <option value="2">Average rating</option>
@@ -56,7 +58,7 @@
                                             <li data-value="4" class="option">Price: high to low</li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 

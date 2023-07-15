@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 
 class Booking extends Model
@@ -30,6 +31,8 @@ class Booking extends Model
         'status',
     ];
 
+    protected $with = ['hotel','user','payment'];
+
     function getref() {
         $prevbooking = $this->orderBy('id', 'DESC')->first();
         $ref_no = (!is_null($prevbooking) && $prevbooking !== 1) ? strtotime(now()).strtoupper(Str::random(3)).$prevbooking->id + 1 : strtotime(now()). Str::random(3).'1';
@@ -44,5 +47,10 @@ class Booking extends Model
     public function hotel(): BelongsTo
     {
         return $this->belongsTo(Hotel::class, 'hotel_id');
+    }
+
+    public function payment(): HasOne
+    {
+        return $this->hasOne(Payment::class, 'booking_id', 'id');
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.user')
 
 @section('title')
     Bookings @parent
@@ -24,10 +24,9 @@
                     <div class="">
                         <table class="table table-hover">
                             <thead>
-                                <td>Client</td>
                                 <td>Hotel</td>
                                 <td>Rooms</td>
-                                <td>Info</td>
+                                <td>Booking</td>
                                 <td>Action</td>
                             </thead>
                             <tbody>
@@ -38,12 +37,6 @@
                                         $country = \App\Models\Country::where('iso', $hotel->country_code)->first();
                                     @endphp
                                     <tr>
-
-                                        <td>
-                                            <p>{{ $user->name }}</p>
-                                            <p>{{ $user->email }}</p>
-                                            <p>{{ $user->phone }}</p>
-                                        </td>
 
                                         <td>
                                             <p>{{ $hotel->name }}</p>
@@ -99,15 +92,17 @@
     aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content">
-
             <div class="modal-header">
+
                 <div class="modal-title">
                     <p>Booking Details</p>
                 </div>
+
                 <button type="button" class="close btn btn-warning text-danger" data-dismiss="modal"
                     aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+
             </div>
 
             <div class="modal-body" id="bookindDetailsSection">
