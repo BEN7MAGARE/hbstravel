@@ -350,7 +350,6 @@ class HotelController extends Controller
         );
         /** Search params */
 
-        // return $result;
         if ($result["Status"]["Code"] !== 200) {
             session()->put('errors', $result["Status"]["Description"]);
             return redirect()->back()->withErrors($result["Status"]["Description"]);

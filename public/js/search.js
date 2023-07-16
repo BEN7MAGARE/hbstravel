@@ -46,11 +46,11 @@
                     console.log("here");
                     for (let i = 0; i < children; i++) {
                         childinput +=
-                            "<div class='row'><div class='col-md-6'><label>Child " +
+                            "<div class='form-group'><label>Child " +
                             i +
-                            " Age</label></div><div class='col-md-6'><input class='form-control' type='number' name='childAge" +
+                            " Age</label><input class='form-control childages' type='number' name='childAge" +
                             i +
-                            "'></div></div>";
+                            "' required></div>";
                     }
                     $("#childrenAgeSection").html(childinput);
                 }

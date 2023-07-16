@@ -7,24 +7,14 @@
 
     <title>@yield('title') | HBSTravel</title>
 
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.png') }}">
-    <!-- Bootstrap core CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-    <!--Custom CSS-->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
-    <!--Plugin CSS-->
     <link href="{{ asset('css/plugin.css') }}" rel="stylesheet" type="text/css">
-    <!--Flaticons CSS-->
     <link href="{{ asset('fonts/flaticon.css') }}" rel="stylesheet" type="text/css">
-    <!--Font Awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('fonts/line-icons.css') }}" type="text/css">
-    <!-- App Style -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}" type="text/css">
     @yield('header_styles')
@@ -59,7 +49,7 @@
     {{-- <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script> --}}
     <script src="{{asset('js/components.js')}}"></script>
-    {{-- <script src="{{ asset('js/plugin.js') }}"></script> --}}
+    <script src="{{ asset('js/plugin.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/custom-nav.js') }}"></script>
     <script src="{{ asset('js/custom-date.js') }}"></script>
