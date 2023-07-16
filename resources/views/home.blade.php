@@ -1,4 +1,4 @@
-@extends('layouts.app1')
+@extends('layouts.app')
 
 @section('title')
     Home @parent
@@ -274,7 +274,7 @@
     </section> --}}
 
     <!-- cta-horizon starts -->
-    
+
     {{-- <div class="cta-horizon bg-blue pt-4 pb-2">
         <div class="container d-md-flex align-items-center justify-content-between">
             <h4 class="mb-2 white">Didn't find the service suite you! Need a custom service?</h4>
