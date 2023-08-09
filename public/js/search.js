@@ -71,7 +71,7 @@
         let roomscount = parseInt($("#numberOfRooms").val()),
             children = parseInt($("#childrenInput1").val()),
             childinput = "";
-        if (roomscount > 0) {
+        if (roomscount <= 1) {
             $("#roomsCount").val(roomscount);
             $("#numberOfRoomsModal").modal("hide");
             if (children > 0) {
@@ -90,8 +90,35 @@
                 $("#searchPlacesForm").submit();
             }
         } else {
-            // $("#searchSubmit").off("submit");
-            $("#searchPlacesForm").submit();
+            if (children > 0) {
+                for (let i = 1; i <= children; i++) {
+                    childinput +=
+                        "<div class='form-group'><label>Child " +
+                        i +
+                        " Age</label><input class='form-control childages' type='number' name='childAge" +
+                        i +
+                        "' required></div>";
+                }
+                $("#childrenAgeSection").html(childinput);
+                $("#childrenSearchModal").modal("toggle");
+            } else if (roomscount > 1) {
+                $("#numberOfRoomsModal").modal('hide');
+                let occusection = ""
+                for (let i = 1; i <= roomscount; i++) {
+                    occusection +=
+                        "<div class='col-md-12'><p><b>Room " +
+                        i +
+                        "</b></p></div><div class='col-md-6'><div class='form-group'><label>NO of Adults</label><input class='form-control room' type='number' name='no_of_adult" +
+                        i +
+                        "' required></div></div><div class='col-md-6'><div class='form-group'><label>NO of Children</label><input class='form-control room' type='number' name='no_of_children" +
+                        i +
+                        "' required></div></div>";
+                }
+                $("#roomDistributionSection").html(occusection);
+                $("#roomDistributionModal").modal("toggle");
+            } else {
+                $("#searchPlacesForm").submit();
+            }
         }
     });
 
@@ -101,9 +128,21 @@
             children.push($(input).val());
         });
         $("#childrenAges").val(children);
-        // $("#searchSubmit").off("submit");
         $("#searchPlacesForm").submit();
         console.log(children);
-        // console.log($("#childrenAges").val());;
+    });
+
+    $("#roomOcuppantsAdd").on('click', function() {
+        let roomscount = parseInt($("#numberOfRooms").val()),values = [];
+        for (let i = 1; i <= roomscount; i++) {
+            let adults = $("input[name='no_of_adult" + i + "']").val(), child = $("input[name='no_of_children"+i+"']").val();
+            values.push({
+                [i]: {
+                    adult: adults,
+                    child: child,
+                }
+            });
+        }
+        $("#roomsSpread").val(values);
     });
 })();

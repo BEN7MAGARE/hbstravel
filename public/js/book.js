@@ -144,9 +144,7 @@
             NoOfAdults: noOfAdults,
             NoOfChildren: noOfChildren,
         };
-
-        console.log(data);
-
+        
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $this.find("input[name='_token']").val(),
@@ -182,7 +180,7 @@
                 } else {
                     showError(
                         "Error occurred during processing",
-                        ".bookingfeedback"
+                        "#bookingfeedback"
                     );
                 }
             },

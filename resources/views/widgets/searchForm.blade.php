@@ -63,6 +63,7 @@
 
                     <input type="hidden" name="roomsCount" id="roomsCount" value="0">
                     <input type="hidden" name="ChildrenAges[]" id="childrenAges" value="">
+                    <input type="hidden" name="roomsspread[]" id="roomsSpread" value="">
 
                     <div class="form-group col-md-1">
                         <button type="submit" class="nir-btn" id="searchSubmit">Find</button>

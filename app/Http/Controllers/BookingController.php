@@ -200,7 +200,9 @@ class BookingController extends Controller
             // "BookingType" => "Voucher",
             "PaymentMode" => "Limit",
         ];
+        // return $data;
         $result = $this->service::book($data);
+        return $result;
         if ($result["Status"]["Code"] == 200) {
             $booking->confimationnumber = $result["ConfirmationNumber"];
             $booking->status = 'successful';

@@ -287,7 +287,7 @@
         <div class="modal-dialog modal-md modal-dialog-centered" role="document">
             <div class="modal-content" id="vehiclePreviewSection">
                 <div class="modal-header">
-                    <div class="modal-title" id="carOverviewModalLabel">
+                    <div class="modal-title">
                         <p>Number of Rooms</p>
                     </div>
                     <button type="button" class="close btn btn-warning text-danger" data-dismiss="modal"
@@ -308,7 +308,7 @@
 
                     <div class="col-md-12">
                         <div class="text-center">
-                            <button class="btn btn-md btn-primary" id="roomsCountAction" type="submit">Add</button>
+                            <button class="btn btn-md btn-primary" id="roomsCountAction" type="submit">Continue</button>
                         </div>
                     </div>
                 </div>
@@ -321,7 +321,7 @@
         <div class="modal-dialog modal-md modal-dialog-centered" role="document">
             <div class="modal-content" id="vehiclePreviewSection">
                 <div class="modal-header">
-                    <div class="modal-title" id="carOverviewModalLabel">
+                    <div class="modal-title">
                         <p>Children Ages</p>
                     </div>
                     <button type="button" class="close btn btn-warning text-danger" data-dismiss="modal"
@@ -336,7 +336,7 @@
 
                     <div class="col-md-12">
                         <div class="text-center">
-                            <button class="btn btn-md btn-warning" id="childrenAgesAdd" data-dismiss="modal">Add</button>
+                            <button class="btn btn-md btn-primary" id="childrenAgesAdd" data-dismiss="modal">Continue</button>
                         </div>
                     </div>
                 </div>
@@ -344,7 +344,33 @@
         </div>
     </div>
 
+    <div class="modal fade" id="roomDistributionModal" tabindex="-1" role="dialog" aria-labelledby="numberOfRoomsLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+            <div class="modal-content" id="vehiclePreviewSection">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <p>Rooms Occupants</p>
+                    </div>
+                    <button type="button" class="close btn btn-warning text-danger" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row p-2" id="roomDistributionSection">
 
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="text-center">
+                            <button class="btn btn-md btn-primary" id="roomOcuppantsAdd" data-dismiss="modal">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('footer_scripts')
