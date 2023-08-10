@@ -133,7 +133,8 @@
     });
 
     $("#roomOcuppantsAdd").on('click', function() {
-        let roomscount = parseInt($("#numberOfRooms").val()),values = [];
+        let roomscount = parseInt($("#numberOfRooms").val()), values = [];
+        console.log(roomscount);
         for (let i = 1; i <= roomscount; i++) {
             let adults = $("input[name='no_of_adult" + i + "']").val(), child = $("input[name='no_of_children"+i+"']").val();
             values.push({
@@ -143,6 +144,7 @@
                 }
             });
         }
+        console.log(values);
         $("#roomsSpread").val(values);
     });
 })();
