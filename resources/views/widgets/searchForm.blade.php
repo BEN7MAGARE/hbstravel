@@ -11,15 +11,10 @@
 
                     <div class="form-group col-md-3">
                         <div class="input-box">
-                            {{-- <i class="fa fa-search"></i> --}}
-
-                            {{-- <input type="text" class="form-control form-control-lg" id="searchparam" list="searchList" placeholder="Enter country, city, or hotel name here">
-                            <datalist id="searchList" style="width: 100%;">
-                                <option value="1">Travel has helped us to understand</option>
-                            </datalist> --}}
                             <select id="searchcountries" class="form-control form-control-lg" name="country_code"></select>
                         </div>
                     </div>
+                    
 
                     <div class="form-group col-md-2">
                         <div class="input-box">
@@ -46,6 +41,7 @@
                                     <option value="{{ $i }}">{{ $i }}</option>
                                 @endfor
                             </select>
+                            <input type="number" class="form-control form-control-md" name="roomsCount" id="roomsCount">
                         </div>
                     </div>
 
@@ -61,9 +57,9 @@
                         </div>
                     </div>
 
-                    <input type="hidden" name="roomsCount" id="roomsCount" value="0">
+                    {{-- <input type="hidden" name="roomsCount" id="roomsCount" value="0">
                     <input type="hidden" name="ChildrenAges[]" id="childrenAges" value="">
-                    <input type="hidden" name="roomsspread[]" id="roomsSpread" value="">
+                    <input type="hidden" name="roomsspread[]" id="roomsSpread" value=""> --}}
 
                     <div class="form-group col-md-1">
                         <button type="submit" class="nir-btn" id="searchSubmit">Find</button>

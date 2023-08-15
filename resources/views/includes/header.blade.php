@@ -4,11 +4,11 @@
         <div class="header_menu" id="header_menu">
             <nav class="navbar navbar-default">
                 <div class="container">
-                    <div class="navbar-flex d-flex align-items-center justify-content-between w-100 pb-2 pt-2">
+                    <div class="navbar-flex d-flex align-items-center justify-content-between w-100">
                         <!-- Brand and toggle get grouped for better mobile display -->
                         <div class="navbar-header">
                             <a class="navbar-brand" href="{{ url('/') }}">
-                                <img style="max-height:100px" src="/images/logo-white.png" alt="image" />
+                                <img style="max-height:80px" src="/images/logo-white.png" alt="image" />
                                 <img src="/images/logo.png" alt="image" />
                             </a>
                         </div>
