@@ -8,8 +8,8 @@
                         <!-- Brand and toggle get grouped for better mobile display -->
                         <div class="navbar-header">
                             <a class="navbar-brand" href="{{ url('/') }}">
-                                <img style="max-height:80px" src="/images/logo-white.png" alt="image" />
                                 <img src="/images/logo.png" alt="image" />
+                                {{-- <img src="/images/logo.png" alt="image" /> --}}
                             </a>
                         </div>
                         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -33,8 +33,8 @@
                                 <li class="{{ Request::is('about') ? 'active' : '' }}"><a
                                         href="{{ url('about') }}">About Us</a></li>
                             </ul>
-
                         </div>
+
                         @guest
                             <div class="register-login">
                                 <a href="{{ route('login') }}" class="{{ Request::is('login') ? 'active' : '' }}">

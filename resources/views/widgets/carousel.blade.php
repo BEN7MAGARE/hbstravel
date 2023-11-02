@@ -1,9 +1,7 @@
  <section class="banner overflow-hidden">
 
         <div class="slider">
-
             <div class="swiper-container">
-
                 <div class="swiper-wrapper">
 
                     <div class="swiper-slide">

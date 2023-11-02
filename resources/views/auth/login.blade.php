@@ -1,11 +1,11 @@
-@extends('layouts.app1')
+@extends('layouts.app')
 
 @section('title')
     Account @parent
 @endsection
 
 @section('content')
-    <div class="dashboard">
+    <div class="dashboard bg-grey">
         <div class="container" style="margin-top: 5em;">
             <div class="row justify-content-center pt-10 pb-10">
                 <div class="col-md-10">

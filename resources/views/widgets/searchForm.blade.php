@@ -14,7 +14,7 @@
                             <select id="searchcountries" class="form-control form-control-lg" name="country_code"></select>
                         </div>
                     </div>
-                    
+
 
                     <div class="form-group col-md-2">
                         <div class="input-box">
@@ -41,7 +41,7 @@
                                     <option value="{{ $i }}">{{ $i }}</option>
                                 @endfor
                             </select>
-                            <input type="number" class="form-control form-control-md" name="roomsCount" id="roomsCount">
+                            {{-- <input type="number" class="form-control form-control-md" name="roomsCount" id="roomsCount"> --}}
                         </div>
                     </div>
 

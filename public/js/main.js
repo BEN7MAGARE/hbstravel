@@ -209,23 +209,15 @@
         slidesToShow: 1,
 
         slidesToScroll: 1,
-
         arrows: false,
-
         dots: false,
-
         autoplay: true,
-
         rows: 0,
-
         speed: 4000,
-
         loop: true,
-
         responsive: [
             {
                 breakpoint: 700,
-
                 settings: {
                     arrows: false,
                 },
