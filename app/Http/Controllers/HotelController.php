@@ -323,12 +323,13 @@ class HotelController extends Controller
             }, range(1, request()->roomsCount))
         ];
         $values = ["checkin" => request()->checkIn, "checkout" => request()->checkOut, 'adults' => request()->input('adults'), 'children' => request()->input('children')];
+
         session()->put('search', [
-            'country' => request()->countries,
             'checkIn' => request()->checkIn,
             'checkOut' => request()->checkOut,
             'rooms' => $rooms,
         ]);
+
         $localhotels = Hotel::where('country_code', request()->country_code)->select('id', 'tbo_code', 'name', 'city', 'address')->get();
         if ($localhotels->count() <= 0) {
             return redirect()->back()->withErrors("No hotels found for your search");
@@ -341,12 +342,12 @@ class HotelController extends Controller
         //     request()->checkOut,
         //     $rooms
         // ];
-
         $result = $service::search(
             $hotelcodes,
             request()->checkIn,
             request()->checkOut,
-            $rooms
+            $rooms,
+            (session()->has('country')) ? session('country')->iso : ""
         );
         /** Search params */
 

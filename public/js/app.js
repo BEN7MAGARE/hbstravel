@@ -72,5 +72,62 @@
         });
     }
 
-    // getDeafaultSearchOptions();
+
+    // function makeAjaxRequest(url) {
+    //     return new Promise((resolve, reject) => {
+    //         fetch(url)
+    //             .then((response) => {
+    //                 if (!response.ok) {
+    //                     reject(new Error("Network response was not ok"));
+    //                 }
+    //                 return response.json();
+    //             })
+    //             .then((data) => {
+    //                 resolve(data);
+    //             })
+    //             .catch((error) => {
+    //                 reject(error);
+    //             });
+    //     });
+    // }
+
+    // makeAjaxRequest("user-country")
+    //     .then((data) => {
+    //         // $("#bs-example-navbar-collapse-1").append(
+    //         //     '<li><a href="#toggleCountryChangeModal"><img src=\'images/countries_flags/' +
+    //         //         country.country.toLowerCase() +
+    //         //         ".PNG'></a></li>"
+    //         // );
+    //         console.log(data);
+    //     })
+    //     .catch((error) => {
+    //         console.error(error);
+    //     });
+
+    const ajaxRequest = $.ajax({
+        url: "/user-country",
+        method: "GET",
+        // dataType: "json",
+    });
+
+    ajaxRequest
+        .done(function (data) {
+            const startIndex = data.indexOf("{");
+            const endIndex = data.lastIndexOf("}") + 1;
+
+            const jsonResponse = data.slice(startIndex, endIndex);
+            console.log(jsonResponse);
+            let result = JSON.parse(jsonResponse);
+            $(".navbar-header").append(
+                '<a href="#" data-toggle="modal" data-target="changeCountryModal"><img src=\'images/countries_flags/' +
+                    result.iso.toLowerCase() +
+                    ".PNG'></a>"
+            );
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            console.error(errorThrown);
+            console.error(textStatus);
+        });
+
+
 })();

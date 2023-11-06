@@ -62,7 +62,7 @@ class TboService
             )->json();
     }
 
-    static function search($hotelsCodes, $checkIn, $checkOut, $rooms) {
+    static function search($hotelsCodes, $checkIn, $checkOut, $rooms, $country=null) {
         // return self::$headers;
 
         return Http::withHeaders(self::$headers)
@@ -72,7 +72,8 @@ class TboService
                     "CheckIn" => $checkIn,
                     "CheckOut" => $checkOut,
                     "HotelCodes" => join(',', $hotelsCodes),
-                    "GuestNationality" => "AE",
+                    "GuestNationality" => $country,
+                    // "GuestNationality" => "AE",
                     "PaxRooms" => $rooms,
                     "ResponseTime" => 23.0,
                     "IsDetailedResponse" => true,

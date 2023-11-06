@@ -150,30 +150,30 @@
 
 
 
-    $("#searchSubmit").on("click", function (event) {
-        event.preventDefault();
-        let $this = $(this),
-            roomscount = parseInt($("#roomsCount").val());
-        if (roomscount === 0) {
-            $("#numberOfRoomsModal").modal("toggle");
-        } else {
-            if (childAges == "") {
-                if (children > 0) {
-                    $("#childrenSearchModal").modal("toggle");
-                    for (let i = 0; i < children; i++) {
-                        childinput +=
-                            "<div class='form-group'><label>Child " +
-                            i +
-                            " Age</label><input class='form-control childages' type='number' name='childAge" +
-                            i +
-                            "' required></div>";
-                    }
-                    $("#childrenAgeSection").html(childinput);
-                }
-            } else {
-                $("#searchPlacesForm").submit();
-            }
-        }
-    });
+    // $("#searchSubmit").on("click", function (event) {
+    //     event.preventDefault();
+    //     let $this = $(this),
+    //         roomscount = parseInt($("#roomsCount").val());
+    //     if (roomscount === 0) {
+    //         $("#numberOfRoomsModal").modal("toggle");
+    //     } else {
+    //         if (childAges == "") {
+    //             if (children > 0) {
+    //                 $("#childrenSearchModal").modal("toggle");
+    //                 for (let i = 0; i < children; i++) {
+    //                     childinput +=
+    //                         "<div class='form-group'><label>Child " +
+    //                         i +
+    //                         " Age</label><input class='form-control childages' type='number' name='childAge" +
+    //                         i +
+    //                         "' required></div>";
+    //                 }
+    //                 $("#childrenAgeSection").html(childinput);
+    //             }
+    //         } else {
+    //             $("#searchPlacesForm").submit();
+    //         }
+    //     }
+    // });
 
 })();

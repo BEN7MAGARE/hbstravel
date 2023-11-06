@@ -52,4 +52,8 @@ return [
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
+
+    'ipinfo' => [
+    'access_token' => env('IPINFO_ACCESS_TOKEN'),
+],
 ];

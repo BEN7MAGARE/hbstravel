@@ -3412,6 +3412,7 @@ header #navbar {
     position: relative;
     width: 100%;
     background: #fff;
+    height: 90px;
 }
 
 .main_header_area .notify-bar {
